@@ -412,89 +412,46 @@
       </section>
 
       <!-- ================= FEEDBACKS ================= -->
-      <!--
-        Cada card é um "print" feito em código. Para usar um feedback real:
-        troque o nome, a empresa e a mensagem, e apague a classe "fb-exemplo"
-        (ela mostra a etiqueta EXEMPLO). Se preferir usar o print de verdade,
-        troque o <article> inteiro por: <img class="fb-print" src="assets/img/feedbacks/print1.webp" alt="Feedback de ...">
-      -->
+      <!-- Feedbacks: prints reais de clientes em assets/img/feedbacks/ -->
       <section class="feedbacks" id="feedbacks">
-        <div class="container head head--center">
+        <div class="fb-palco">
+        <div class="fb-topo">
           <p class="eyebrow">Feedbacks</p>
           <h2 class="textoAnimado">Quem tirou o site do papel, <span class="destaque">recomenda</span></h2>
           <p class="lead">Mensagens de clientes depois que o site foi para o ar.</p>
-        </div>
-
-        <div class="fb-grid">
-          <div class="fb-col">
-            <div class="fb" data-speed="1.12">
-              <article class="fb-card fb-whats fb-exemplo">
-                <header class="fb-top"><span class="fb-app">WhatsApp</span><span>14:32</span></header>
-                <div class="fb-autor"><span class="fb-avatar">N</span><div><strong>Nome do cliente</strong><small>Empresa do cliente</small></div></div>
-                <p class="fb-msg">Exemplo: troque pelo feedback real que o cliente mandou.</p>
-              </article>
-            </div>
-            <div class="fb" data-speed="0.94">
-              <article class="fb-card fb-google fb-exemplo">
-                <header class="fb-top"><span class="fb-app">Google</span><span>há 2 semanas</span></header>
-                <div class="fb-autor"><span class="fb-avatar">N</span><div><strong>Nome do cliente</strong><small>Empresa do cliente</small></div></div>
-                <p class="fb-estrelas" aria-label="5 estrelas">★★★★★</p>
-                <p class="fb-msg">Exemplo: troque pelo feedback real que o cliente mandou.</p>
-              </article>
-            </div>
-            <div class="fb" data-speed="1.06">
-              <article class="fb-card fb-insta fb-exemplo">
-                <header class="fb-top"><span class="fb-app">Instagram</span><span>ontem</span></header>
-                <div class="fb-autor"><span class="fb-avatar">N</span><div><strong>Nome do cliente</strong><small>Empresa do cliente</small></div></div>
-                <p class="fb-msg">Exemplo: troque pelo feedback real que o cliente mandou.</p>
-              </article>
-            </div>
-          </div>
-          <div class="fb-col fb-col--2">
-            <div class="fb" data-speed="0.9">
-              <article class="fb-card fb-email fb-exemplo">
-                <header class="fb-top"><span class="fb-app">E-mail</span><span>09:15</span></header>
-                <div class="fb-autor"><span class="fb-avatar">N</span><div><strong>Nome do cliente</strong><small>Empresa do cliente</small></div></div>
-                <p class="fb-assunto">Assunto do e-mail</p>
-                <p class="fb-msg">Exemplo: troque pelo feedback real que o cliente mandou.</p>
-              </article>
-            </div>
-            <div class="fb" data-speed="1.16">
-              <article class="fb-card fb-whats fb-exemplo">
-                <header class="fb-top"><span class="fb-app">WhatsApp</span><span>18:47</span></header>
-                <div class="fb-autor"><span class="fb-avatar">N</span><div><strong>Nome do cliente</strong><small>Empresa do cliente</small></div></div>
-                <p class="fb-msg">Exemplo: troque pelo feedback real que o cliente mandou.</p>
-              </article>
-            </div>
-            <div class="fb" data-speed="0.96">
-              <article class="fb-card fb-insta fb-exemplo">
-                <header class="fb-top"><span class="fb-app">Instagram</span><span>há 3 dias</span></header>
-                <div class="fb-autor"><span class="fb-avatar">N</span><div><strong>Nome do cliente</strong><small>Empresa do cliente</small></div></div>
-                <p class="fb-msg">Exemplo: troque pelo feedback real que o cliente mandou.</p>
-              </article>
-            </div>
-          </div>
-          <div class="fb-col fb-col--3">
-            <div class="fb" data-speed="1.08">
-              <article class="fb-card fb-google fb-exemplo">
-                <header class="fb-top"><span class="fb-app">Google</span><span>há 1 mês</span></header>
-                <div class="fb-autor"><span class="fb-avatar">N</span><div><strong>Nome do cliente</strong><small>Empresa do cliente</small></div></div>
-                <p class="fb-estrelas" aria-label="5 estrelas">★★★★★</p>
-                <p class="fb-msg">Exemplo: troque pelo feedback real que o cliente mandou.</p>
-              </article>
-            </div>
-            <div class="fb" data-speed="0.92">
-              <article class="fb-card fb-whats fb-exemplo">
-                <header class="fb-top"><span class="fb-app">WhatsApp</span><span>11:05</span></header>
-                <div class="fb-autor"><span class="fb-avatar">N</span><div><strong>Nome do cliente</strong><small>Empresa do cliente</small></div></div>
-                <p class="fb-msg">Exemplo: troque pelo feedback real que o cliente mandou.</p>
-              </article>
-            </div>
+          <div class="botoes fb-cta">
+            <a class="btn-principal" href="#contato" data-whats><span>Quero um site assim</span><img src="assets/img/seta-branca.svg" alt=""></a>
           </div>
         </div>
 
-        <div class="botoes fb-cta">
-          <a class="btn-principal" href="#contato" data-whats><span>Quero um site assim</span><img src="assets/img/seta-branca.svg" alt=""></a>
+        <!-- Colagem de prints: posição em --x/--y/--w/--z (computador) e --mx/--my/--mw/--mz (celular).
+             data-ritmo = quantos pixels o print sobe (negativo) ou desce (positivo) ao rolar -->
+        <div class="fb-colagem">
+          <div class="fb" data-ritmo="-60" style="--x:48%;--y:0%;--w:36%;--z:2;--mx:0%;--my:0%;--mw:80%;--mz:1">
+            <img class="fb-print" src="assets/img/feedbacks/feedback-6.jpg" alt="Feedback de cliente no WhatsApp sobre o projeto final" width="1024" height="572" loading="lazy">
+          </div>
+          <div class="fb" data-ritmo="90" style="--x:79%;--y:4.5%;--w:20%;--z:5;--mx:50%;--my:9.2%;--mw:50%;--mz:3">
+            <img class="fb-print" src="assets/img/feedbacks/feedback-8.jpg" alt="Avaliação de cliente no Google sobre o site e o sistema de agendamentos" width="374" height="765" loading="lazy">
+          </div>
+          <div class="fb" data-ritmo="-110" style="--x:50%;--y:21%;--w:31%;--z:4;--mx:0%;--my:16%;--mw:60%;--mz:2">
+            <img class="fb-print" src="assets/img/feedbacks/feedback-7.jpg" alt="Feedback de cliente no Instagram sobre o novo design do site" width="993" height="760" loading="lazy">
+          </div>
+          <div class="fb" data-ritmo="40" style="--x:0%;--y:39%;--w:34%;--z:2;--mx:0%;--my:33.6%;--mw:72%;--mz:4">
+            <img class="fb-print" src="assets/img/feedbacks/feedback-1.jpg" alt="Feedback de cliente no WhatsApp sobre a landing page" width="1024" height="909" loading="lazy">
+          </div>
+          <div class="fb" data-ritmo="-80" style="--x:31%;--y:51%;--w:30%;--z:3;--mx:28%;--my:49.6%;--mw:72%;--mz:5">
+            <img class="fb-print" src="assets/img/feedbacks/feedback-4.jpg" alt="Feedback de cliente no Instagram sobre o site novo" width="1024" height="645" loading="lazy">
+          </div>
+          <div class="fb" data-ritmo="130" style="--x:64.5%;--y:54.5%;--w:27%;--z:1;--mx:45%;--my:63.4%;--mw:55%;--mz:6">
+            <img class="fb-print" src="assets/img/feedbacks/feedback-3.jpg" alt="Feedback de cliente no WhatsApp sobre o site e o painel" width="695" height="1024" loading="lazy">
+          </div>
+          <div class="fb" data-ritmo="-50" style="--x:3%;--y:75.5%;--w:38%;--z:3;--mx:5%;--my:88.2%;--mw:90%;--mz:8">
+            <img class="fb-print" src="assets/img/feedbacks/feedback-5.jpg" alt="Comentário de cliente no Instagram sobre o site" width="1024" height="442" loading="lazy">
+          </div>
+          <div class="fb" data-ritmo="100" style="--x:39%;--y:74.5%;--w:34%;--z:4;--mx:0%;--my:67.2%;--mw:65%;--mz:7">
+            <img class="fb-print" src="assets/img/feedbacks/feedback-2.jpg" alt="Feedback de cliente no Instagram sobre o e-commerce" width="1024" height="572" loading="lazy">
+          </div>
+        </div>
         </div>
       </section>
 

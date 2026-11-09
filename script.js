@@ -390,18 +390,21 @@ function iniciarAnimacoes() {
     });
   });
 
-  // ---------- 4b. Feedbacks: cada card entra de baixo com zoom (igual à Rodarock);
-  //               a velocidade diferente de cada um vem do data-speed no HTML ----------
-  gsap.utils.toArray(".fb-card, .fb-print").forEach((card) => {
-    gsap.fromTo(card,
-      { y: 150, opacity: 0, scale: 0.9 },
-      {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        ease: "power3.out",
-        scrollTrigger: { trigger: card, start: "top 95%", end: "top 60%", scrub: 1 },
-      });
+  // ---------- 4b. Feedbacks: cada print sobe e desce num ritmo próprio ao rolar ----------
+  gsap.utils.toArray(".fb").forEach((card) => {
+    const r = Number(card.dataset.ritmo) || 80; // pixels: positivo desce, negativo sobe
+    gsap.fromTo(card, { y: r }, {
+      y: -r,
+      ease: "none",
+      scrollTrigger: { trigger: ".fb-colagem", start: "top bottom", end: "bottom top", scrub: 1 },
+    });
+    gsap.from(card.querySelector(".fb-print"), {
+      opacity: 0,
+      scale: 0.92,
+      duration: 0.9,
+      ease: "power3.out",
+      scrollTrigger: { trigger: card, start: "top 92%", once: true },
+    });
   });
 
   // ---------- 5. Seta girando nos cards de suporte ----------

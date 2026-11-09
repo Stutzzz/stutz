@@ -161,7 +161,7 @@ Do site original: vídeo de fundo, "CONTATO" gigante com degradê branco → azu
 9. **Cards explodindo**: janelas que se abrem para os lados revelando a chamada
 10. **Site que converte** (faixa escura)
 11. **Suporte + tecnologias**: cards com seta girando e grade de tecnologias acendendo em loop
-12. **Feedbacks**: prints de WhatsApp, Instagram, Google e e-mail em 3 colunas (2 no celular)
+12. **Feedbacks**: texto à esquerda e colagem de 8 prints reais começando ao lado dele, na direita, e seguindo por baixo
 13. **FAQ**
 14. **Rodapé com contato**
 
@@ -180,7 +180,7 @@ Do site original: vídeo de fundo, "CONTATO" gigante com degradê branco → azu
 | Seta girando | Suporte | Gira 180° conforme a rolagem |
 | Letras rolando | menu do celular | Texto troca por uma cópia azul que sobe letra a letra |
 | Carrossel de cases | Cases | Anda sozinho; para ao tocar ou passar o mouse e aceita arrastar |
-| Feedbacks subindo | Feedbacks | Cada card entra de baixo com zoom (y 150 → 0, escala 0.9 → 1) e sobe numa velocidade própria (`data-speed` de 0.9 a 1.16) |
+| Feedbacks em ritmos | Feedbacks | Cada print sobe ou desce ao rolar no próprio ritmo (`data-ritmo`, em px) e entra uma vez com fade e zoom |
 | Faixa de e-mail | Rodapé | Rolagem infinita em CSS |
 
 Com `prefers-reduced-motion`, a rolagem suave, as colunas e os carrosséis ficam desligados.

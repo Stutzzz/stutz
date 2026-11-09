@@ -1149,7 +1149,7 @@ main {
 }
 
 /* ==========================================================
-   FEEDBACKS (prints que sobem em velocidades diferentes)
+   FEEDBACKS (colagem de prints, cada um num ritmo ao rolar)
 ========================================================== */
 .feedbacks {
   padding: var(--section) var(--gutter);
@@ -1157,124 +1157,53 @@ main {
   overflow: hidden;
 }
 
-.fb-grid {
+/* Texto e colagem dividem a mesma área: o texto fica no canto esquerdo de cima
+   e os prints começam ao lado dele, na direita, e continuam por baixo. */
+.fb-palco {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  max-width: 1100px;
+  grid-template-columns: 44% 1fr;
+  max-width: 1240px;
   margin: 0 auto;
-  align-items: start;
+}
+.fb-topo { grid-area: 1 / 1; position: relative; z-index: 10; align-self: start; }
+.fb-topo h2 { max-width: 560px; }
+.fb-topo .lead { max-width: 460px; }
+.fb-cta { justify-content: flex-start; margin-top: 32px; }
+
+.fb-colagem {
+  grid-area: 1 / 1 / 2 / 3;
+  position: relative;
+  aspect-ratio: 1240 / 1100;
 }
 
-.fb-col { display: flex; flex-direction: column; gap: 28px; }
-.fb-col--2 { margin-top: 96px; }
-.fb-col--3 { margin-top: 40px; }
-
-.fb-card {
-  position: relative;
-  padding: 18px 18px 20px;
-  border-radius: 18px;
-  background: var(--paper);
-  border: 1.5px solid var(--edge);
-  box-shadow: 5px 5px 0 0 var(--hard);
-  will-change: transform, opacity;
+.fb {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  z-index: var(--z);
+  will-change: transform;
 }
 
 .fb-print {
+  display: block;
   width: 100%;
+  height: auto;
   border-radius: 18px;
-  border: 1.5px solid var(--edge);
-  box-shadow: 5px 5px 0 0 var(--hard);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
 }
 
-.fb-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  color: var(--muted);
+/* Telas médias: o texto vem antes e a colagem logo abaixo, para não encostar */
+@media (max-width: 980px) {
+  .fb-palco { display: block; }
+  .fb-colagem { margin-top: 56px; }
 }
-
-.fb-app { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--ink-2); }
-
-.fb-app::before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-
-.fb-whats .fb-app::before { background: #25d366; }
-.fb-insta .fb-app::before { background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7); }
-.fb-google .fb-app::before { background: #fbbc05; }
-
-.fb-autor { display: flex; align-items: center; gap: 10px; margin: 14px 0 12px; }
-
-.fb-avatar {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: var(--blue-tint);
-  color: var(--accent);
-  font-family: var(--display);
-  font-weight: 500;
-}
-
-.fb-autor strong { display: block; font-size: 14px; color: var(--ink); line-height: 1.3; }
-.fb-autor small { display: block; font-size: 12px; color: var(--muted); }
-
-.fb-msg { font-size: 15px; line-height: 1.5; color: var(--ink-2); }
-
-.fb-whats .fb-msg {
-  padding: 12px 14px;
-  border-radius: 14px 14px 14px 4px;
-  background: rgba(37, 211, 102, 0.12);
-}
-
-.fb-insta .fb-msg {
-  padding: 12px 14px;
-  border-radius: 18px;
-  background: var(--bg-2);
-}
-
-.fb-estrelas { margin-bottom: 6px; font-size: 15px; letter-spacing: 2px; color: #fbbc05; }
-.fb-assunto { margin-bottom: 6px; font-size: 14px; font-weight: 600; color: var(--ink); }
-
-/* Etiqueta dos cards de exemplo: some quando a classe fb-exemplo é removida */
-.fb-exemplo::after {
-  content: "exemplo";
-  position: absolute;
-  top: -10px;
-  right: 14px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--accent);
-  color: #fff;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.fb-cta { margin-top: 72px; }
 
 @media (max-width: 768px) {
-  .fb-grid { display: block; columns: 2; column-gap: 14px; }
-  .fb-col { display: contents; }
-  .fb { display: inline-block; width: 100%; padding-top: 10px; break-inside: avoid; margin-bottom: 8px; }
-  .fb-card { padding: 14px 12px 14px; border-radius: 14px; box-shadow: 3px 3px 0 0 var(--hard); }
-  .fb-top { font-size: 10px; }
-  .fb-avatar { width: 28px; height: 28px; font-size: 13px; }
-  .fb-autor { gap: 8px; margin: 10px 0 8px; }
-  .fb-autor strong { font-size: 12px; }
-  .fb-autor small { font-size: 10px; }
-  .fb-msg, .fb-assunto { font-size: 12.5px; }
-  .fb-whats .fb-msg, .fb-insta .fb-msg { padding: 9px 10px; }
-  .fb-cta { margin-top: 48px; }
+  .fb-colagem { margin-top: 48px; aspect-ratio: 340 / 1190; }
+  .feedbacks .fb-cta { align-items: flex-start; }
+  .fb { left: var(--mx); top: var(--my); width: var(--mw); z-index: var(--mz); }
+  .fb-print { border-radius: 12px; }
 }
 
 /* ==========================================================
@@ -1578,7 +1507,7 @@ main {
   .sec3 .direita { max-width: 560px; margin: 0 auto; }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 980px) {
   .nav-links, .nav-cta { display: none; }
   .nav { justify-content: space-between; padding: 6px 6px 6px 20px; }
   .theme-toggle { margin-left: auto; }
