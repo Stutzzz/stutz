@@ -25,91 +25,109 @@ if (WHATSAPP) {
   });
 }
 
-// Carrossel de cases: duplica os itens para a rolagem infinita
+// Cases em curva (inspirado na Osmo): as janelas andam numa faixa horizontal que segue
+// um círculo enorme (quase reto). Andam sozinhas devagar, ganham um empurrão leve
+// ao rolar a página e podem ser arrastadas com o dedo ou o mouse.
 const casesTrack = document.getElementById("cases-track");
-if (casesTrack) {
-  const copia = casesTrack.innerHTML;
-  casesTrack.insertAdjacentHTML("beforeend", copia);
-  [...casesTrack.children].slice(casesTrack.children.length / 2).forEach((el) => el.setAttribute("aria-hidden", "true"));
-}
+const casesRoda = document.querySelector(".cases-roda");
+if (casesRoda && casesTrack) {
+  const TOTAL = 10; // 5 projetos x 2, suficiente para cobrir telas largas
+  const originais = [...casesTrack.querySelectorAll(".case")];
+  for (let i = originais.length; i < TOTAL; i++) {
+    const copia = originais[i % originais.length].cloneNode(true);
+    copia.setAttribute("aria-hidden", "true");
+    casesTrack.appendChild(copia);
+  }
+  const itens = [...casesTrack.children];
+  itens.forEach((item) => item.classList.add("roda-item"));
+  casesTrack.querySelectorAll("img").forEach((img) => { img.draggable = false; });
 
-// Carrossel de cases: anda sozinho, mas aceita arrastar com o dedo ou o mouse
-const casesMarquee = document.querySelector(".cases-marquee");
-if (casesMarquee && casesTrack) {
-  const VELOCIDADE = 0.5;     // pixels por quadro
-  const ESPERA_RETOMAR = 2000; // ms depois de soltar
-
-  let posicao = 1;
-  let pausado = false;
-  let tempoRetomar;
-
-  const metade = () => casesTrack.scrollWidth / 2;
-
-  // Mantém a posição dentro da primeira cópia, para o loop nunca acabar
-  const normalizar = () => {
-    const m = metade();
-    if (casesMarquee.scrollLeft >= m) casesMarquee.scrollLeft -= m;
-    else if (casesMarquee.scrollLeft < 1) casesMarquee.scrollLeft += m;
+  const VELOCIDADE = reduzido ? 0 : -0.35; // pixels por quadro (negativo = anda para a esquerda)
+  let medidas = {};
+  const medir = () => {
+    const css = getComputedStyle(casesRoda);
+    const largura = parseFloat(css.getPropertyValue("--largura")) || 380;
+    const espaco = parseFloat(css.getPropertyValue("--espaco")) || 56;
+    medidas = { raio: parseFloat(css.getPropertyValue("--raio")) || 4200, passo: largura + espaco };
+    medidas.total = medidas.passo * TOTAL;
   };
+  medir();
+  window.addEventListener("resize", medir);
 
-  const pausar = () => {
-    pausado = true;
-    clearTimeout(tempoRetomar);
-  };
-
-  const retomarDepois = () => {
-    clearTimeout(tempoRetomar);
-    tempoRetomar = setTimeout(() => {
-      posicao = casesMarquee.scrollLeft;
-      pausado = false;
-    }, ESPERA_RETOMAR);
-  };
-
-  // Toque no celular
-  casesMarquee.addEventListener("touchstart", pausar, { passive: true });
-  casesMarquee.addEventListener("touchend", retomarDepois, { passive: true });
-  casesMarquee.addEventListener("touchcancel", retomarDepois, { passive: true });
-
-  // Mouse: para em cima e permite arrastar
+  let deslocamento = 0;
+  let velocidade = VELOCIDADE;
   let arrastando = false;
-  let inicioX = 0;
-  let inicioScroll = 0;
-  casesMarquee.addEventListener("mouseenter", pausar);
-  casesMarquee.addEventListener("mouseleave", () => { arrastando = false; casesMarquee.classList.remove("arrastando"); retomarDepois(); });
-  casesMarquee.addEventListener("mousedown", (e) => {
+  let ultimoX = 0;
+
+  let distanciaArrastada = 0;
+
+  casesRoda.addEventListener("pointerdown", (e) => {
     arrastando = true;
-    inicioX = e.clientX;
-    inicioScroll = casesMarquee.scrollLeft;
-    casesMarquee.classList.add("arrastando");
-    e.preventDefault();
-  });
-  window.addEventListener("mousemove", (e) => {
-    if (!arrastando) return;
-    casesMarquee.scrollLeft = inicioScroll - (e.clientX - inicioX);
-  });
-  window.addEventListener("mouseup", () => {
-    arrastando = false;
-    casesMarquee.classList.remove("arrastando");
+    distanciaArrastada = 0;
+    ultimoX = e.clientX;
+    velocidade = 0;
+    casesRoda.setPointerCapture(e.pointerId);
+    casesRoda.classList.add("arrastando");
   });
 
-  // Trackpad / roda do mouse na horizontal
-  casesMarquee.addEventListener("wheel", (e) => {
-    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { pausar(); retomarDepois(); }
+  casesRoda.addEventListener("pointermove", (e) => {
+    if (!arrastando) return;
+    const dx = e.clientX - ultimoX;
+    ultimoX = e.clientX;
+    distanciaArrastada += Math.abs(dx);
+    deslocamento += dx;
+    velocidade = dx; // embalo para quando soltar
+  });
+
+  const soltar = () => {
+    arrastando = false;
+    casesRoda.classList.remove("arrastando");
+  };
+
+  // Toque rápido (sem arrastar) numa janela com link abre o site em nova aba
+  casesRoda.addEventListener("pointerup", (e) => {
+    if (distanciaArrastada < 6) {
+      const link = document.elementFromPoint(e.clientX, e.clientY)?.closest(".projeto-link");
+      if (link) window.open(link.href, "_blank", "noopener");
+    }
+    soltar();
+  });
+
+  // O clique "de verdade" nos links da roda é tratado acima; o teclado (Enter) continua funcionando
+  casesRoda.addEventListener("click", (e) => {
+    if (e.target.closest(".projeto-link") && e.detail !== 0) e.preventDefault();
+  });
+  casesRoda.addEventListener("pointercancel", soltar);
+
+  // Rolar a página dá um empurrão leve
+  let scrollAnterior = window.scrollY;
+  window.addEventListener("scroll", () => {
+    const diferenca = window.scrollY - scrollAnterior;
+    scrollAnterior = window.scrollY;
+    if (!arrastando && !reduzido) velocidade -= Math.min(Math.abs(diferenca) * 0.01, 0.6);
   }, { passive: true });
 
-  casesMarquee.addEventListener("scroll", () => { if (pausado) normalizar(); }, { passive: true });
-
-  const andar = () => {
-    if (!pausado && !reduzido) {
-      posicao += VELOCIDADE;
-      const m = metade();
-      if (posicao >= m) posicao -= m;
-      casesMarquee.scrollLeft = posicao;
-    }
-    requestAnimationFrame(andar);
+  const posicionar = () => {
+    const { raio, passo, total } = medidas;
+    itens.forEach((item, i) => {
+      // posição horizontal em loop, centrada no meio da tela
+      let x = (((i * passo + deslocamento) % total) + total) % total;
+      if (x > total / 2) x -= total;
+      const angulo = Math.asin(Math.max(-1, Math.min(1, x / raio)));
+      const y = raio - Math.sqrt(Math.max(0, raio * raio - x * x));
+      item.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${angulo}rad)`;
+    });
   };
 
-  casesMarquee.scrollLeft = posicao;
+  const andar = () => {
+    if (!arrastando) {
+      velocidade += (VELOCIDADE - velocidade) * 0.04; // embalo volta aos poucos à velocidade normal
+      deslocamento += velocidade;
+    }
+    posicionar();
+    requestAnimationFrame(andar);
+  };
+  posicionar();
   requestAnimationFrame(andar);
 }
 
@@ -123,7 +141,7 @@ if (marquee) {
 // Celular: duas faixas de janelas rodando na seção de chamada (cópias das janelas que explodem)
 const containerCards = document.querySelector(".sessao-cards .cards-container");
 if (containerCards) {
-  const janelas = [...containerCards.querySelectorAll(".xcard .mac")];
+  const janelas = [...containerCards.querySelectorAll(".xcard > *")]; // janela (ou link com a janela)
   const criarFaixa = (lista, classe) => {
     const faixa = document.createElement("div");
     faixa.className = `x-faixa ${classe}`;
@@ -372,6 +390,20 @@ function iniciarAnimacoes() {
     });
   });
 
+  // ---------- 4b. Feedbacks: cada card entra de baixo com zoom (igual à Rodarock);
+  //               a velocidade diferente de cada um vem do data-speed no HTML ----------
+  gsap.utils.toArray(".fb-card, .fb-print").forEach((card) => {
+    gsap.fromTo(card,
+      { y: 150, opacity: 0, scale: 0.9 },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        ease: "power3.out",
+        scrollTrigger: { trigger: card, start: "top 95%", end: "top 60%", scrub: 1 },
+      });
+  });
+
   // ---------- 5. Seta girando nos cards de suporte ----------
   gsap.to(".card3 .seta", {
     rotation: 180,
@@ -380,6 +412,7 @@ function iniciarAnimacoes() {
   });
 
   // ---------- 6. Títulos surgindo do desfoque ----------
+  // Anima uma vez só: depois de aparecer, o título fica visível mesmo ao subir a página de volta.
   document.querySelectorAll(".textoAnimado").forEach((texto) => {
     const split = new SplitText(texto, { type: "words, chars" });
     gsap.from(split.chars, {
@@ -390,7 +423,7 @@ function iniciarAnimacoes() {
       scrollTrigger: {
         trigger: texto,
         start: "top 85%",
-        toggleActions: "play none none reverse",
+        once: true,
       },
     });
   });
@@ -437,9 +470,58 @@ function iniciarAnimacoes() {
   });
 }
 
+// ==========================================
+// PRE LOADER: desenha o contorno do S, preenche com o degradê
+// e só então mostra a página e começa as animações dela
+// ==========================================
+const preloader = document.getElementById("preloader");
+
+function liberarPagina() {
+  document.documentElement.classList.remove("carregando");
+}
+
 if (animar) {
-  // Espera as fontes para o SplitText quebrar as linhas no lugar certo
-  (document.fonts ? document.fonts.ready : Promise.resolve()).then(iniciarAnimacoes);
+  const tracos = document.querySelectorAll(".loader-traco");
+  tracos.forEach((traco) => {
+    const tamanho = traco.getTotalLength();
+    gsap.set(traco, { strokeDasharray: tamanho, strokeDashoffset: tamanho });
+  });
+
+  const fontesProntas = document.fonts ? document.fonts.ready : Promise.resolve();
+  let paginaIniciada = false;
+  const iniciarUmaVez = () => {
+    if (paginaIniciada) return;
+    paginaIniciada = true;
+    liberarPagina();
+    fontesProntas.then(iniciarAnimacoes);
+  };
+
+  gsap.timeline({
+    delay: 0.2,
+    onComplete: () => {
+      gsap.to(preloader, {
+        autoAlpha: 0,
+        duration: 0.5,
+        ease: "power2.out",
+        onStart: iniciarUmaVez,
+        onComplete: () => preloader.remove(),
+      });
+    },
+  })
+    .to(tracos, { strokeDashoffset: 0, duration: 1.3, ease: "power2.inOut", stagger: 0.12 })
+    .to(".loader-fill", { opacity: 1, duration: 0.7, ease: "power1.out" }, "-=0.25")
+    .to(tracos, { opacity: 0, duration: 0.4 }, "<0.3");
+
+  // Garantia: se algo travar, a página aparece mesmo assim
+  setTimeout(() => {
+    if (!paginaIniciada) {
+      preloader.remove();
+      iniciarUmaVez();
+    }
+  }, 6000);
+} else {
+  if (preloader) preloader.remove();
+  liberarPagina();
 }
 
 // ==========================================

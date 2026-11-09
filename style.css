@@ -652,7 +652,8 @@ main {
 }
 
 /* Recorte de cada imagem: posição do site dentro da arte (em pixels da imagem original) */
-.shot-fabrica { --iw: 1920; --ih: 950; --l: 259; --t: 124; --cw: 1402; --ch: 701; --pl: 1290; }
+/* Fábrica Premium: print direto do site (1600x800, já na proporção da janela) */
+.shot-fabrica { --iw: 1600; --ih: 800; --l: 0; --t: 0; --cw: 1600; --ch: 800; --pl: 0; }
 
 .shot-livro,
 .shot-evoluiu,
@@ -665,56 +666,47 @@ main {
 .shot-experience { --pl: 813; }
 
 /* ==========================================================
-   CASES (CARROSSEL INFINITO)
+   CASES (RODA)
 ========================================================== */
 .cases { padding: var(--section) 0; background: var(--bg); }
 
 .cases .head { margin-bottom: 56px; }
 
-.cases-marquee {
-  overflow-x: auto;
-  overflow-y: hidden;
-  overscroll-behavior-x: contain;
-  scrollbar-width: none;
+/* Cases em curva (inspirado na Osmo): faixa horizontal que segue um círculo enorme, quase reta */
+.cases { overflow: hidden; }
+
+.cases-roda {
+  --raio: 4200px;     /* quanto maior, mais reta a curva */
+  --largura: 380px;   /* largura de cada janela */
+  --espaco: 56px;     /* espaço entre as janelas */
+  position: relative;
+  height: 330px;
+  touch-action: pan-y;
   cursor: grab;
-  padding: 16px 0 24px;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
 }
 
-.cases-marquee::-webkit-scrollbar { display: none; }
-.cases-marquee.arrastando { cursor: grabbing; }
+.cases-roda.arrastando { cursor: grabbing; }
 
-/* Andar sozinho é feito pelo script.js; o dedo (ou o mouse) pode arrastar a qualquer momento */
-.cases-track {
-  display: flex;
-  width: max-content;
+.cases-roda .roda-giro { position: relative; height: 100%; }
+
+.cases-roda .roda-item {
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  width: var(--largura);
+  margin: 0 0 0 calc(var(--largura) / -2);
+  padding: 0;
+  will-change: transform;
 }
 
-.case {
-  width: clamp(290px, 34vw, 520px);
-  margin-right: clamp(40px, 5vw, 72px);
-  padding-bottom: 8px;
-}
+.cases-roda img { pointer-events: none; }
 
 .case:hover .mac { transform: translate(-3px, -3px); box-shadow: 10px 10px 0 0 var(--blue); }
 
-.case-cat {
-  margin-top: 40px;
-  text-align: center;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.case-nome {
-  margin-top: 4px;
-  text-align: center;
-  font-size: 14px;
-  color: var(--muted);
-}
 
 /* ==========================================================
    O QUE ESTÁ EM JOGO
@@ -880,33 +872,33 @@ main {
   top: 0;
   left: 0;
   width: 100%;
-  padding: 52px 44px;
-  border-radius: 24px;
-  border: 1.5px solid var(--edge);
-  box-shadow: 8px 8px 0 0 var(--hard);
+  padding: 60px 40px;
+  border-radius: 30px;
+  border: 1px solid rgba(77, 155, 255, 0.15);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
   transform-origin: bottom center;
 }
 
-.card-1 { z-index: 4; background: var(--paper); }
-.card-2 { z-index: 3; background: var(--card-2); }
-.card-3 { z-index: 2; background: var(--blue-tint); }
-.card-4 { z-index: 1; background: var(--blue); }
+/* Degradês azul-marinho do site original (iguais nos dois temas) */
+.card-1 { z-index: 4; background: linear-gradient(135deg, #060d1a 0%, #0b1730 100%); }
+.card-2 { z-index: 3; background: linear-gradient(135deg, #091321 0%, #0f2038 100%); }
+.card-3 { z-index: 2; background: linear-gradient(135deg, #0b1c36 0%, #133360 100%); }
+.card-4 { z-index: 1; background: linear-gradient(135deg, #133360 0%, #1d4e8f 100%); }
+
+:root[data-theme="light"] .passo-card { box-shadow: 0 10px 40px rgba(11, 18, 32, 0.25); }
 
 .card-numero {
   display: block;
+  margin-bottom: 20px;
   font-family: var(--display);
-  font-size: clamp(3.2rem, 5vw, 4.8rem);
+  font-size: clamp(3.5rem, 5vw, 5rem);
   font-weight: 700;
   line-height: 1;
-  color: var(--accent);
+  color: #fff;
 }
 
-.passo-card h3 { margin: 20px 0 12px; font-size: clamp(1.6rem, 2.4vw, 2.2rem); }
-.passo-card p { font-size: 17px; color: var(--ink-2); max-width: 520px; }
-
-.card-4 .card-numero,
-.card-4 h3 { color: #fff; }
-.card-4 p { color: rgba(255, 255, 255, 0.85); }
+.passo-card h3 { margin-bottom: 16px; font-size: clamp(1.6rem, 2.4vw, 2.2rem); color: #fff; }
+.passo-card p { font-size: 1.1rem; line-height: 1.6; color: rgba(255, 255, 255, 0.65); max-width: 560px; }
 
 /* ==========================================================
    CARDS EXPLODINDO
@@ -1149,6 +1141,135 @@ main {
   background: var(--blue);
   border-color: var(--edge);
   box-shadow: 6px 6px 0 0 var(--hard);
+}
+
+/* ==========================================================
+   FEEDBACKS (prints que sobem em velocidades diferentes)
+========================================================== */
+.feedbacks {
+  padding: var(--section) var(--gutter);
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.fb-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.fb-col { display: flex; flex-direction: column; gap: 28px; }
+.fb-col--2 { margin-top: 96px; }
+.fb-col--3 { margin-top: 40px; }
+
+.fb-card {
+  position: relative;
+  padding: 18px 18px 20px;
+  border-radius: 18px;
+  background: var(--paper);
+  border: 1.5px solid var(--edge);
+  box-shadow: 5px 5px 0 0 var(--hard);
+  will-change: transform, opacity;
+}
+
+.fb-print {
+  width: 100%;
+  border-radius: 18px;
+  border: 1.5px solid var(--edge);
+  box-shadow: 5px 5px 0 0 var(--hard);
+}
+
+.fb-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.fb-app { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--ink-2); }
+
+.fb-app::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.fb-whats .fb-app::before { background: #25d366; }
+.fb-insta .fb-app::before { background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7); }
+.fb-google .fb-app::before { background: #fbbc05; }
+
+.fb-autor { display: flex; align-items: center; gap: 10px; margin: 14px 0 12px; }
+
+.fb-avatar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--blue-tint);
+  color: var(--accent);
+  font-family: var(--display);
+  font-weight: 500;
+}
+
+.fb-autor strong { display: block; font-size: 14px; color: var(--ink); line-height: 1.3; }
+.fb-autor small { display: block; font-size: 12px; color: var(--muted); }
+
+.fb-msg { font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+
+.fb-whats .fb-msg {
+  padding: 12px 14px;
+  border-radius: 14px 14px 14px 4px;
+  background: rgba(37, 211, 102, 0.12);
+}
+
+.fb-insta .fb-msg {
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: var(--bg-2);
+}
+
+.fb-estrelas { margin-bottom: 6px; font-size: 15px; letter-spacing: 2px; color: #fbbc05; }
+.fb-assunto { margin-bottom: 6px; font-size: 14px; font-weight: 600; color: var(--ink); }
+
+/* Etiqueta dos cards de exemplo: some quando a classe fb-exemplo é removida */
+.fb-exemplo::after {
+  content: "exemplo";
+  position: absolute;
+  top: -10px;
+  right: 14px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.fb-cta { margin-top: 72px; }
+
+@media (max-width: 768px) {
+  .fb-grid { display: block; columns: 2; column-gap: 14px; }
+  .fb-col { display: contents; }
+  .fb { display: inline-block; width: 100%; padding-top: 10px; break-inside: avoid; margin-bottom: 8px; }
+  .fb-card { padding: 14px 12px 14px; border-radius: 14px; box-shadow: 3px 3px 0 0 var(--hard); }
+  .fb-top { font-size: 10px; }
+  .fb-avatar { width: 28px; height: 28px; font-size: 13px; }
+  .fb-autor { gap: 8px; margin: 10px 0 8px; }
+  .fb-autor strong { font-size: 12px; }
+  .fb-autor small { font-size: 10px; }
+  .fb-msg, .fb-assunto { font-size: 12.5px; }
+  .fb-whats .fb-msg, .fb-insta .fb-msg { padding: 9px 10px; }
+  .fb-cta { margin-top: 48px; }
 }
 
 /* ==========================================================
@@ -1497,7 +1618,7 @@ main {
   .card3 { width: 100%; }
   .sec3 .direita { gap: 12px; }
 
-  .case-cat { margin-top: 32px; }
+  .cases-roda { --raio: 2200px; --largura: 240px; --espaco: 28px; height: 200px; }
   .phone { border-width: 3px; border-radius: 12px; }
   .phone-screen { border-radius: 8px; }
 
@@ -1578,9 +1699,10 @@ main {
   .passo-card {
     position: relative;
     flex: 0 0 86%;
-    padding: 32px 24px;
+    padding: 36px 24px;
+    border-radius: 24px;
     scroll-snap-align: center;
-    box-shadow: 5px 5px 0 0 var(--hard);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
   }
 
   .passo-card p { font-size: 16px; }
@@ -1632,3 +1754,89 @@ main {
 @media (max-width: 768px) and (prefers-reduced-motion: reduce) {
   .x-trilho { animation: none; }
 }
+
+/* Seção "Seu projeto pode ser o próximo": janelas sem borda e sem sombra */
+.sessao-cards .mac,
+.sessao-cards .mac:hover,
+.sessao-cards .xcard .mac,
+.sessao-cards .x-trilho .mac {
+  border: 0;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.sessao-cards .mac-bar { border-bottom: 1px solid var(--line); border-radius: 0; }
+.sessao-cards .mac-screen { border-radius: 0; }
+
+/* Botões do topo: principal branco e secundário preto */
+.btn-principal--branco {
+  background: #e8e8e8;
+  color: #151515;
+}
+
+.btn-principal--branco::after { background: #151515; }
+.btn-principal--branco span { transition: color 0.5s var(--ease); }
+.btn-principal--branco:hover span { color: #fff; }
+.btn-principal--branco:hover { background: #e8e8e8; }
+
+.btn-secundario--preto {
+  background: #000;
+  color: #e8e8e8;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.btn-secundario--preto:hover {
+  background: #e8e8e8;
+  color: #151515;
+  border-color: #e8e8e8;
+}
+
+/* Print de celular próprio: ocupa a tela do celular inteira, sem recorte */
+.phone-screen img.print-celular {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Projetos com link para o site no ar */
+.projeto-link { display: block; color: inherit; }
+.cases-roda .projeto-link { cursor: pointer; }
+.x-trilho > .projeto-link { flex-shrink: 0; }
+
+/* ==========================================================
+   PRE LOADER (contorno do S desenhado e depois preenchido)
+========================================================== */
+html.carregando,
+html.carregando body { overflow: hidden; }
+
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg);
+  /* se o script não carregar, o pre loader some sozinho depois de 8s */
+  animation: loader-sumir 0.4s ease 8s forwards;
+}
+
+@keyframes loader-sumir { to { opacity: 0; visibility: hidden; } }
+
+.logoLoader { width: clamp(90px, 11vw, 150px); height: auto; overflow: visible; }
+
+.loader-fill { opacity: 0; }
+
+.loader-traco {
+  fill: rgba(77, 155, 255, 0.08);
+  stroke: var(--blue-light);
+  stroke-width: 9;
+  stroke-linejoin: round;
+}
+
+/* Sem animação (movimento reduzido ou GSAP fora do ar): sem pre loader */
+.sem-animacao #preloader { display: none; }
+
