@@ -3,7 +3,7 @@
 // ==========================================
 // Coloque o número com DDI e DDD, só números (ex: "5511999999999").
 // Enquanto estiver vazio, os botões "Agendar conversa" levam para o contato no rodapé.
-const WHATSAPP = "";
+const WHATSAPP = "5511927485272";
 const MENSAGEM_WHATS = "Olá! Vim pelo site da STUTZ e quero um orçamento de site.";
 const EMAIL_CONTATO = "contato@stutz.com.br";
 

@@ -658,17 +658,14 @@ main {
 
 /* Recorte de cada imagem: posição do site dentro da arte (em pixels da imagem original) */
 /* Fábrica Premium: print direto do site (1600x800, já na proporção da janela) */
-.shot-fabrica { --iw: 1600; --ih: 800; --l: 0; --t: 0; --cw: 1600; --ch: 800; --pl: 0; }
+.shot-fabrica,
+.shot-icore,
+.shot-rodarock,
+.shot-luana { --iw: 1600; --ih: 800; --l: 0; --t: 0; --cw: 1600; --ch: 800; --pl: 0; }
 
-.shot-livro,
-.shot-evoluiu,
-.shot-webhub,
-.shot-experience { --iw: 1920; --ih: 900; --l: 372; --t: 156; --cw: 1176; --ch: 588; }
+.shot-webhub { --iw: 1920; --ih: 900; --l: 372; --t: 156; --cw: 1176; --ch: 588; }
 
-.shot-livro { --pl: 500; }
-.shot-evoluiu { --pl: 1260; }
 .shot-webhub { --pl: 1260; }
-.shot-experience { --pl: 813; }
 
 /* ==========================================================
    CASES (RODA)
@@ -1774,3 +1771,7 @@ html.carregando body { overflow: hidden; }
 /* Sem animação (movimento reduzido ou GSAP fora do ar): sem pre loader */
 .sem-animacao #preloader { display: none; }
 
+
+/* Cases: no modo escuro as janelas e celulares usam uma sombra em cinza-prata frio */
+:root[data-theme="dark"] .cases .mac { box-shadow: 7px 7px 0 0 #5b6880; }
+:root[data-theme="dark"] .cases .phone { box-shadow: 6px 6px 0 0 #5b6880; }
