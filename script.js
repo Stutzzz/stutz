@@ -40,6 +40,43 @@ if (marquee) {
   marquee.innerHTML = Array(8).fill(`<span>${EMAIL_CONTATO}</span>${estrela}`).join("");
 }
 
+// Celular: duas faixas de janelas rodando na seção de chamada (cópias das janelas que explodem)
+const containerCards = document.querySelector(".sessao-cards .cards-container");
+if (containerCards) {
+  const janelas = [...containerCards.querySelectorAll(".xcard .mac")];
+  const criarFaixa = (lista, classe) => {
+    const faixa = document.createElement("div");
+    faixa.className = `x-faixa ${classe}`;
+    faixa.setAttribute("aria-hidden", "true");
+    const trilho = document.createElement("div");
+    trilho.className = "x-trilho";
+    [...lista, ...lista].forEach((mac) => trilho.appendChild(mac.cloneNode(true)));
+    faixa.appendChild(trilho);
+    return faixa;
+  };
+  containerCards.prepend(criarFaixa(janelas.slice(0, 3), "x-faixa--1"));
+  containerCards.append(criarFaixa(janelas.slice(3), "x-faixa--2"));
+}
+
+// Carrossel do "Como funciona" no celular: bolinhas acompanham o card visível
+const trilhoPassos = document.querySelector(".processo-right");
+const bolinhas = document.querySelectorAll(".processo-dots button");
+if (trilhoPassos && bolinhas.length) {
+  const cardsPasso = [...trilhoPassos.querySelectorAll(".passo-card")];
+  const marcar = () => {
+    const centro = trilhoPassos.scrollLeft + trilhoPassos.clientWidth / 2;
+    let atual = 0;
+    cardsPasso.forEach((c, i) => {
+      if (Math.abs(c.offsetLeft + c.offsetWidth / 2 - centro) < Math.abs(cardsPasso[atual].offsetLeft + cardsPasso[atual].offsetWidth / 2 - centro)) atual = i;
+    });
+    bolinhas.forEach((b, i) => b.classList.toggle("ativo", i === atual));
+  };
+  trilhoPassos.addEventListener("scroll", marcar, { passive: true });
+  bolinhas.forEach((b, i) => b.addEventListener("click", () => {
+    trilhoPassos.scrollTo({ left: cardsPasso[i].offsetLeft - (trilhoPassos.clientWidth - cardsPasso[i].offsetWidth) / 2, behavior: "smooth" });
+  }));
+}
+
 document.getElementById("ano").textContent = new Date().getFullYear();
 
 // ==========================================
@@ -159,109 +196,101 @@ function iniciarAnimacoes() {
 
   const mm = gsap.matchMedia();
 
-  // ---------- 1. Hero fixado + 11 colunas + texto letra a letra ----------
-  const heroTransicao = (fim, staggerColunas, staggerLetras) => {
+  const DESKTOP = "(min-width: 769px)";
+  const CELULAR = "(max-width: 768px)";
+
+  // ---------- 1a. Computador: hero fixado + 11 colunas + texto letra a letra ----------
+  mm.add(DESKTOP, () => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: "main",
         start: "100% 100%",
-        end: `+=${fim}`,
+        end: "+=2000",
         scrub: 1,
         pin: true,
         refreshPriority: 1,
       },
     });
 
-    tl.to(".hero .transition div", {
-      height: "100%",
-      duration: 1,
-      stagger: staggerColunas,
-    });
+    tl.to(".hero .transition div", { height: "100%", duration: 1, stagger: 0.08 });
 
     const split = new SplitText(".textoAnimado2", { type: "lines, words, chars", mask: "lines" });
     gsap.set(".textoAnimado2", { opacity: 1 });
+    tl.from(split.chars, { y: "100%", opacity: 0, duration: 0.3, stagger: 0.03 }, "-=.5");
+  });
 
-    tl.from(split.chars, {
-      y: "100%",
-      opacity: 0,
-      duration: 0.3,
-      stagger: staggerLetras,
-    }, "-=.5");
-  };
-
-  mm.add("(min-width: 769px)", () => heroTransicao(2000, 0.08, 0.03));
-  mm.add("(max-width: 768px)", () => heroTransicao(1200, 0.06, 0.02));
-
-  // ---------- 2. Projetos crescem e ganham cor ----------
-  gsap.utils.toArray(".projeto").forEach((projeto) => {
-    gsap.to(projeto, {
-      width: "100%",
-      borderRadius: 0,
-      scrollTrigger: { trigger: projeto, end: "50% 50%", scrub: 1 },
+  // ---------- 1b. Celular: frase em bloco próprio, palavras acendendo ao rolar ----------
+  mm.add(CELULAR, () => {
+    const split = new SplitText(".textoAnimado2", { type: "words" });
+    gsap.set(".textoAnimado2", { opacity: 1 });
+    gsap.fromTo(split.words, { opacity: 0.15 }, {
+      opacity: 1,
+      stagger: 0.1,
+      ease: "none",
+      scrollTrigger: { trigger: ".textoTransicao", start: "top 75%", end: "bottom 55%", scrub: 1 },
     });
+  });
 
+  // ---------- 2. Projetos ganham cor (e crescem no computador) ----------
+  gsap.utils.toArray(".projeto").forEach((projeto) => {
     gsap.to(projeto.querySelector("img"), {
       filter: "saturate(100%)",
       scrollTrigger: { trigger: projeto, start: "0% 70%", end: "50% 50%", scrub: 1 },
     });
   });
 
-  // ---------- 3. Como funciona: cards empilhados ----------
-  const cardsProcesso = gsap.utils.toArray(".passo-card");
-  gsap.set(cardsProcesso, {
-    y: (i) => i * 20,
-    rotation: (i) => i * 4,
-    transformOrigin: "bottom center",
-  });
-
-  const tlProcesso = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".processo",
-      start: "top 5%",
-      end: "+=2000",
-      scrub: 1,
-      pin: true,
-      refreshPriority: 1,
-    },
-  });
-
-  cardsProcesso.forEach((card, i) => {
-    if (i === cardsProcesso.length - 1) return;
-    tlProcesso.to(card, { y: -800, opacity: 0, rotation: -10, duration: 1, ease: "power2.in" }, i);
-    tlProcesso.to(cardsProcesso[i + 1], { y: 0, rotation: 0, duration: 1, ease: "power2.out" }, i);
-  });
-
-  // ---------- 4. Cards explodindo para os lados ----------
-  const explodir = (valores, inicio) => {
-    gsap.utils.toArray(".linha-cards").forEach((linha, i) => {
-      const esquerda = linha.querySelector(".card-left");
-      const direita = linha.querySelector(".card-right");
-      const gatilho = { trigger: ".sessao-cards", start: inicio, end: "bottom top", scrub: 1 };
-
-      if (esquerda) {
-        gsap.to(esquerda, { x: valores.leftX[i], y: valores.y[i], rotation: valores.leftR[i], ease: "none", scrollTrigger: gatilho });
-      }
-      if (direita) {
-        gsap.to(direita, { x: valores.rightX[i], y: valores.y[i], rotation: valores.rightR[i], ease: "none", scrollTrigger: { ...gatilho } });
-      }
+  mm.add(DESKTOP, () => {
+    gsap.utils.toArray(".projeto").forEach((projeto) => {
+      gsap.to(projeto, {
+        width: "100%",
+        borderRadius: 0,
+        scrollTrigger: { trigger: projeto, end: "50% 50%", scrub: 1 },
+      });
     });
-  };
+  });
 
-  mm.add("(min-width: 769px)", () => explodir({
-    leftX: [-850, -950, -450],
-    rightX: [850, 950, 450],
-    leftR: [-30, -20, -35],
-    rightR: [30, 20, 35],
-    y: [120, -180, -420],
-  }, "top 65%"));
+  // ---------- 3. Como funciona: cards empilhados (no celular vira carrossel, sem GSAP) ----------
+  mm.add(DESKTOP, () => {
+    const cardsProcesso = gsap.utils.toArray(".passo-card");
+    gsap.set(cardsProcesso, {
+      y: (i) => i * 20,
+      rotation: (i) => i * 4,
+      transformOrigin: "bottom center",
+    });
 
-  mm.add("(max-width: 768px)", () => explodir({
-    leftX: [-260, -290, -180],
-    rightX: [260, 290, 180],
-    leftR: [-25, -20, -30],
-    rightR: [25, 20, 30],
-    y: [140, -100, -250],
-  }, "top 70%"));
+    const tlProcesso = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".processo",
+        start: "top 5%",
+        end: "+=2000",
+        scrub: 1,
+        pin: true,
+        refreshPriority: 1,
+      },
+    });
+
+    cardsProcesso.forEach((card, i) => {
+      if (i === cardsProcesso.length - 1) return;
+      tlProcesso.to(card, { y: -800, opacity: 0, rotation: -10, duration: 1, ease: "power2.in" }, i);
+      tlProcesso.to(cardsProcesso[i + 1], { y: 0, rotation: 0, duration: 1, ease: "power2.out" }, i);
+    });
+  });
+
+  // ---------- 4. Cards explodindo (só no computador; no celular são faixas rodando em CSS) ----------
+  mm.add(DESKTOP, () => {
+    const valores = {
+      leftX: [-850, -950, -450],
+      rightX: [850, 950, 450],
+      leftR: [-30, -20, -35],
+      rightR: [30, 20, 35],
+      y: [120, -180, -420],
+    };
+    gsap.utils.toArray(".linha-cards").forEach((linha, i) => {
+      const gatilho = () => ({ trigger: ".sessao-cards", start: "top 65%", end: "bottom top", scrub: 1 });
+      gsap.to(linha.querySelector(".card-left"), { x: valores.leftX[i], y: valores.y[i], rotation: valores.leftR[i], ease: "none", scrollTrigger: gatilho() });
+      gsap.to(linha.querySelector(".card-right"), { x: valores.rightX[i], y: valores.y[i], rotation: valores.rightR[i], ease: "none", scrollTrigger: gatilho() });
+    });
+  });
 
   // ---------- 5. Seta girando nos cards de suporte ----------
   gsap.to(".card3 .seta", {

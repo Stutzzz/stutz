@@ -1520,3 +1520,113 @@ main {
   .cases-track, .marquee-content { animation: none; }
   .cases-marquee { overflow-x: auto; }
 }
+
+/* ==========================================================
+   CELULAR: VERSÕES PRÓPRIAS DAS ANIMAÇÕES DE ROLAGEM
+   (no computador nada disso aparece)
+========================================================== */
+.processo-dots,
+.x-faixa { display: none; }
+
+@keyframes x-loop { to { transform: translateX(-50%); } }
+
+@media (max-width: 768px) {
+  /* Topo: sem colunas e sem travar a tela; a frase vira um bloco próprio */
+  main { height: auto; overflow: visible; }
+  .hero { height: 100svh; min-height: 620px; }
+  .hero .transition { display: none; }
+  .hero::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    height: 140px;
+    background: linear-gradient(180deg, transparent, var(--bg));
+    pointer-events: none;
+  }
+
+  .textoTransicao {
+    position: relative;
+    height: auto;
+    padding: 96px var(--gutter) 8px;
+    background: var(--bg);
+  }
+
+  .textoTransicao p { font-size: clamp(1.9rem, 8.4vw, 2.6rem); }
+
+  /* Como funciona: carrossel de deslizar */
+  .processo-container { gap: 32px; }
+
+  .processo-right {
+    display: flex;
+    gap: 14px;
+    width: calc(100% + 2 * var(--gutter));
+    min-height: 0;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 4px var(--gutter) 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .processo-right::-webkit-scrollbar { display: none; }
+
+  .passo-card {
+    position: relative;
+    flex: 0 0 86%;
+    padding: 32px 24px;
+    scroll-snap-align: center;
+    box-shadow: 5px 5px 0 0 var(--hard);
+  }
+
+  .passo-card p { font-size: 16px; }
+
+  .processo-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .processo-dots button {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: var(--line);
+    cursor: pointer;
+    transition: width 0.3s var(--ease), background 0.3s;
+  }
+
+  .processo-dots button.ativo { width: 26px; background: var(--accent); }
+
+  /* Chamada: janelas rodando em duas faixas, texto livre no meio */
+  .sessao-cards { display: block; min-height: 0; padding: var(--section) 0; }
+  .cards-container { gap: 40px; padding: 0; }
+  .linha-cards, .indicador-scroll { display: none; }
+  .conteudo-centro { position: static; transform: none; margin: 0 auto; }
+
+  .x-faixa { display: block; width: 100%; overflow: hidden; padding: 4px 0 12px; }
+  .x-trilho { display: flex; width: max-content; animation: x-loop 32s linear infinite; }
+  .x-faixa--2 .x-trilho { animation-direction: reverse; }
+
+  .x-trilho .mac {
+    flex-shrink: 0;
+    width: 230px;
+    margin-right: 20px;
+    box-shadow: 4px 4px 0 0 var(--hard);
+  }
+
+  .x-trilho .mac-bar { height: 18px; gap: 3px; padding: 0 7px; }
+  .x-trilho .mac-bar .d { width: 6px; height: 6px; }
+  .x-trilho .mac-url { height: 8px; margin-left: 6px; }
+
+  /* Projetos: só ganham cor, sem crescer */
+  .projeto { width: 92%; }
+}
+
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .x-trilho { animation: none; }
+}
