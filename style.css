@@ -506,9 +506,11 @@ main {
 }
 
 .hero h1 {
+  max-width: 12em;            /* garante 2 linhas equilibradas em telas largas */
   margin: 28px 0 22px;
-  font-size: clamp(2.6rem, 5.6vw, 6.2rem);
-  line-height: 1.02;
+  font-size: clamp(2.5rem, 5.2vw, 5.6rem);
+  line-height: 1.04;
+  text-wrap: balance;
   letter-spacing: -0.02em;
   color: #fff;
 }
@@ -548,14 +550,17 @@ main {
   height: 100lvh;
   display: flex;
   align-items: center;
-  padding: 0 6vw;
+  justify-content: flex-start;
+  padding: 0 4vw; /* mesma proporção do site original: perto do canto */
   pointer-events: none;
 }
 
 .textoTransicao p {
-  max-width: 1300px;
-  font-size: clamp(2.1rem, 4.5vw, 5rem);
-  line-height: 1.2;
+  max-width: 90vw;
+  font-size: clamp(2.2rem, 4.6vw, 5.6rem);
+  line-height: 1.28;
+  text-align: left;
+  text-wrap: pretty; /* evita uma palavra sozinha na última linha */
   letter-spacing: -0.01em;
   color: var(--ink);
   opacity: 0;
