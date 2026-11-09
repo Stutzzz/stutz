@@ -339,12 +339,18 @@ function iniciarAnimacoes() {
 
   mm.add(DESKTOP, () => {
     gsap.utils.toArray(".projeto").forEach((projeto) => {
+      // Reserva desde o começo a altura que a imagem terá ao crescer. Sem isso, a página
+      // fica mais alta durante a rolagem e as seções abaixo (ex: Como funciona) saem do lugar.
+      const img = projeto.querySelector("img");
+      const link = projeto.parentElement;
+      link.style.aspectRatio = `${img.getAttribute("width")} / ${img.getAttribute("height")}`;
       gsap.to(projeto, {
         width: "100%",
         borderRadius: 0,
         scrollTrigger: { trigger: projeto, end: "50% 50%", scrub: 1 },
       });
     });
+    return () => gsap.utils.toArray(".projetos > a").forEach((link) => (link.style.aspectRatio = ""));
   });
 
   // ---------- 3. Como funciona: cards empilhados (no celular vira carrossel, sem GSAP) ----------
@@ -359,7 +365,7 @@ function iniciarAnimacoes() {
     const tlProcesso = gsap.timeline({
       scrollTrigger: {
         trigger: ".processo",
-        start: "top 5%",
+        start: "top top",
         end: "+=2000",
         scrub: 1,
         pin: true,
@@ -432,7 +438,9 @@ function iniciarAnimacoes() {
   });
 
   // ---------- 7. Letras rolando no menu e na nav ----------
-  document.querySelectorAll(".menu-nav a:not(.menu-cta), .nav-links a").forEach((link) => {
+  // O "Fale conosco" do rodapé usa o mesmo efeito: o texto rola quando o mouse passa no botão
+  document.querySelectorAll(".menu-nav a:not(.menu-cta), .nav-links a, .footer-contact-btn .fc-texto").forEach((link) => {
+    const gatilho = link.closest(".footer-contact-btn") || link;
     const texto = link.textContent.trim();
     link.innerHTML = "";
 
@@ -455,8 +463,8 @@ function iniciarAnimacoes() {
       .to(s1.chars, { y: "-100%", duration: 0.35, stagger: 0.03, ease: "power3.inOut" }, 0)
       .to(s2.chars, { y: "0%", duration: 0.35, stagger: 0.03, ease: "power3.inOut" }, 0);
 
-    link.addEventListener("mouseenter", () => tl.play());
-    link.addEventListener("mouseleave", () => tl.reverse());
+    gatilho.addEventListener("mouseenter", () => tl.play());
+    gatilho.addEventListener("mouseleave", () => tl.reverse());
   });
 
   ScrollTrigger.sort();

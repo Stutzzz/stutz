@@ -375,6 +375,7 @@ html.trocando-tema *::after {
 
 .layer-1, .layer-2 { display: block; }
 .layer-2 { position: absolute; inset: 0; color: var(--blue-light); }
+.footer-contact-btn .fc-texto { position: relative; overflow: hidden; display: inline-block; line-height: 1.15; }
 
 .menu-cta {
   margin-top: 16px;
@@ -824,6 +825,7 @@ main {
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .projeto {
@@ -858,6 +860,17 @@ main {
   gap: 64px;
   max-width: 1240px;
   margin: 0 auto;
+}
+
+/* Computador: a seção ocupa a tela inteira e o conteúdo fica no meio enquanto os cards rolam */
+@media (min-width: 769px) {
+  html:not(.sem-animacao) .processo {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    padding-block: 96px 48px;
+  }
+  html:not(.sem-animacao) .processo-container { width: 100%; }
 }
 
 .processo-left { width: 40%; }
