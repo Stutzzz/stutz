@@ -1,0 +1,7 @@
+# Versões antigas do site (backup local, não vão para o ar)
+versao-anterior/
+versao-raycast/
+
+# Arquivos do sistema e do editor
+.DS_Store
+.claude/
