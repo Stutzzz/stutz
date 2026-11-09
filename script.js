@@ -33,6 +33,86 @@ if (casesTrack) {
   [...casesTrack.children].slice(casesTrack.children.length / 2).forEach((el) => el.setAttribute("aria-hidden", "true"));
 }
 
+// Carrossel de cases: anda sozinho, mas aceita arrastar com o dedo ou o mouse
+const casesMarquee = document.querySelector(".cases-marquee");
+if (casesMarquee && casesTrack) {
+  const VELOCIDADE = 0.5;     // pixels por quadro
+  const ESPERA_RETOMAR = 2000; // ms depois de soltar
+
+  let posicao = 1;
+  let pausado = false;
+  let tempoRetomar;
+
+  const metade = () => casesTrack.scrollWidth / 2;
+
+  // Mantém a posição dentro da primeira cópia, para o loop nunca acabar
+  const normalizar = () => {
+    const m = metade();
+    if (casesMarquee.scrollLeft >= m) casesMarquee.scrollLeft -= m;
+    else if (casesMarquee.scrollLeft < 1) casesMarquee.scrollLeft += m;
+  };
+
+  const pausar = () => {
+    pausado = true;
+    clearTimeout(tempoRetomar);
+  };
+
+  const retomarDepois = () => {
+    clearTimeout(tempoRetomar);
+    tempoRetomar = setTimeout(() => {
+      posicao = casesMarquee.scrollLeft;
+      pausado = false;
+    }, ESPERA_RETOMAR);
+  };
+
+  // Toque no celular
+  casesMarquee.addEventListener("touchstart", pausar, { passive: true });
+  casesMarquee.addEventListener("touchend", retomarDepois, { passive: true });
+  casesMarquee.addEventListener("touchcancel", retomarDepois, { passive: true });
+
+  // Mouse: para em cima e permite arrastar
+  let arrastando = false;
+  let inicioX = 0;
+  let inicioScroll = 0;
+  casesMarquee.addEventListener("mouseenter", pausar);
+  casesMarquee.addEventListener("mouseleave", () => { arrastando = false; casesMarquee.classList.remove("arrastando"); retomarDepois(); });
+  casesMarquee.addEventListener("mousedown", (e) => {
+    arrastando = true;
+    inicioX = e.clientX;
+    inicioScroll = casesMarquee.scrollLeft;
+    casesMarquee.classList.add("arrastando");
+    e.preventDefault();
+  });
+  window.addEventListener("mousemove", (e) => {
+    if (!arrastando) return;
+    casesMarquee.scrollLeft = inicioScroll - (e.clientX - inicioX);
+  });
+  window.addEventListener("mouseup", () => {
+    arrastando = false;
+    casesMarquee.classList.remove("arrastando");
+  });
+
+  // Trackpad / roda do mouse na horizontal
+  casesMarquee.addEventListener("wheel", (e) => {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { pausar(); retomarDepois(); }
+  }, { passive: true });
+
+  casesMarquee.addEventListener("scroll", () => { if (pausado) normalizar(); }, { passive: true });
+
+  const andar = () => {
+    if (!pausado && !reduzido) {
+      posicao += VELOCIDADE;
+      const m = metade();
+      if (posicao >= m) posicao -= m;
+      casesMarquee.scrollLeft = posicao;
+    }
+    requestAnimationFrame(andar);
+  };
+
+  casesMarquee.scrollLeft = posicao;
+  requestAnimationFrame(andar);
+}
+
 // Faixa do e-mail no rodapé
 const marquee = document.getElementById("marquee");
 if (marquee) {
