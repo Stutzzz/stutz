@@ -662,11 +662,10 @@ main {
 .shot-fabrica,
 .shot-icore,
 .shot-rodarock,
-.shot-luana { --iw: 1600; --ih: 800; --l: 0; --t: 0; --cw: 1600; --ch: 800; --pl: 0; }
+.shot-luana,
+.shot-nutri { --iw: 1600; --ih: 800; --l: 0; --t: 0; --cw: 1600; --ch: 800; --pl: 0; }
 
-.shot-webhub { --iw: 1920; --ih: 900; --l: 372; --t: 156; --cw: 1176; --ch: 588; }
 
-.shot-webhub { --pl: 1260; }
 
 /* ==========================================================
    CASES (RODA)
@@ -1714,19 +1713,24 @@ main {
 
 /* Botões do topo: principal branco e secundário preto */
 .btn-principal--branco {
-  background: #e8e8e8;
+  background: rgba(255, 255, 255, 0.75);
   color: #151515;
 }
 
 .btn-principal--branco::after { background: #151515; }
 .btn-principal--branco span { transition: color 0.5s var(--ease); }
 .btn-principal--branco:hover span { color: #fff; }
-.btn-principal--branco:hover { background: #e8e8e8; }
+.btn-principal--branco:hover { background: rgba(255, 255, 255, 0.75); }
 
 .btn-secundario--preto {
-  background: #000;
-  color: #e8e8e8;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  background-color: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.282);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08), 0 18px 38px 0 rgba(0, 0, 0, 0.15), 0 4px 5.8px 0 rgba(255, 255, 255, 0.07) inset, 0 4px 8px 0 rgba(255, 255, 255, 0.02) inset;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .btn-secundario--preto:hover {
@@ -1788,3 +1792,17 @@ html.carregando body { overflow: hidden; }
 /* Cases: no modo escuro as janelas e celulares usam uma sombra em cinza-prata frio */
 :root[data-theme="dark"] .cases .mac { box-shadow: 7px 7px 0 0 #5b6880; }
 :root[data-theme="dark"] .cases .phone { box-shadow: 6px 6px 0 0 #5b6880; }
+
+/* Rodapé no celular: CONTATO cabe na tela, botão menor e menu em linhas sem estrelas */
+@media (max-width: 768px) {
+  .footer-giant-section { margin: 72px 0; }
+  .giant-bg-text { font-size: 16vw; }
+  .footer-ready { font-size: 0.95rem; letter-spacing: 1.5px; text-align: center; }
+  .footer-contact-btn { gap: 10px; padding: 5px 5px 5px 18px; }
+  .footer-contact-btn > span:first-child { font-size: 0.9rem; }
+  .btn-arrow-circle { width: 34px; height: 34px; }
+  .footer-nav-links { column-gap: 24px; row-gap: 14px; max-width: 340px; margin: 56px auto 32px; }
+  .footer-nav-links a { font-size: 0.9rem; }
+  .footer-star { display: none; }
+}
+
