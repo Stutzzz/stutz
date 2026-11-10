@@ -1806,3 +1806,59 @@ html.carregando body { overflow: hidden; }
   .footer-star { display: none; }
 }
 
+
+/* ==========================================================
+   AVISO DE COOKIES (LGPD)
+========================================================== */
+.aviso-cookies {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 400px;
+  padding: 20px 22px;
+  border-radius: 20px;
+  background: rgba(11, 15, 22, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), visibility 0.4s;
+}
+
+.aviso-cookies.visivel { opacity: 1; visibility: visible; transform: none; }
+.aviso-cookies strong { display: block; margin-bottom: 4px; color: #fff; font-family: var(--display); font-size: 16px; font-weight: 500; }
+
+.aviso-cookies-botoes { display: flex; gap: 10px; justify-content: flex-end; }
+
+.aviso-cookies button {
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.ck-recusar { background: transparent; color: rgba(255, 255, 255, 0.8); border: 1px solid rgba(255, 255, 255, 0.25); }
+.ck-recusar:hover { border-color: #fff; color: #fff; }
+.ck-aceitar { background: var(--blue); color: #fff; border: 1px solid var(--blue); }
+.ck-aceitar:hover { background: var(--blue-light); border-color: var(--blue-light); }
+
+.link-cookies { margin-left: 8px; color: rgba(255, 255, 255, 0.6); text-decoration: underline; }
+.link-cookies:hover { color: #fff; }
+
+@media (max-width: 768px) {
+  .aviso-cookies { left: 12px; right: 12px; bottom: 12px; max-width: none; padding: 18px; }
+  .aviso-cookies-botoes button { flex: 1; }
+}
