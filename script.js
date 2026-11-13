@@ -119,7 +119,10 @@ if (casesRoda && casesTrack) {
     });
   };
 
+  // A faixa só anda enquanto está na tela (ou perto dela); fora disso fica parada onde estava
+  let rodando = false;
   const andar = () => {
+    if (!rodando) return;
     if (!arrastando) {
       velocidade += (VELOCIDADE - velocidade) * 0.04; // embalo volta aos poucos à velocidade normal
       deslocamento += velocidade;
@@ -127,8 +130,16 @@ if (casesRoda && casesTrack) {
     posicionar();
     requestAnimationFrame(andar);
   };
+  const ligar = () => { if (!rodando) { rodando = true; requestAnimationFrame(andar); } };
   posicionar();
-  requestAnimationFrame(andar);
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver((entradas) => {
+      if (entradas[0].isIntersecting) ligar();
+      else rodando = false;
+    }, { rootMargin: "200px 0px" }).observe(casesRoda);
+  } else {
+    ligar();
+  }
 }
 
 // Faixa do e-mail no rodapé
@@ -254,7 +265,14 @@ if (cardsCanais.length) {
   };
 
   atualizarCanais();
-  if (!reduzido) setInterval(atualizarCanais, 2000);
+  // Só troca enquanto a grade está na tela
+  if (!reduzido) {
+    let canaisVisiveis = true;
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((e) => { canaisVisiveis = e[0].isIntersecting; }).observe(cardsCanais[0].parentElement);
+    }
+    setInterval(() => { if (canaisVisiveis) atualizarCanais(); }, 2000);
+  }
 }
 
 // ==========================================
@@ -485,11 +503,19 @@ function iniciarAnimacoes() {
   ScrollTrigger.sort();
   ScrollTrigger.refresh();
 
-  // Imagens que carregam depois mudam a altura da página: recalcula as posições
+  // Se uma imagem que carregou depois mudar a altura da página, recalcula as posições.
+  // Como as imagens já reservam o espaço (width/height), quase sempre não precisa.
   let espera;
+  let alturaAnterior = document.documentElement.scrollHeight;
   const recalcular = () => {
     clearTimeout(espera);
-    espera = setTimeout(() => ScrollTrigger.refresh(), 200);
+    espera = setTimeout(() => {
+      const altura = document.documentElement.scrollHeight;
+      if (altura !== alturaAnterior) {
+        alturaAnterior = altura;
+        ScrollTrigger.refresh();
+      }
+    }, 200);
   };
   document.querySelectorAll("img").forEach((img) => {
     if (!img.complete) img.addEventListener("load", recalcular, { once: true });

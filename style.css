@@ -35,7 +35,7 @@
   --paper: #f2f5f9;
   --ink: #0b1220;
   --ink-2: #3c4556;
-  --muted: #6b7486;
+  --muted: #576072; /* escurecido para ter contraste mínimo de 4,5:1 nos fundos gelo */
   --line: #c5cfdc;
   --edge: #0b1220;
   --hard: #0b1220;
@@ -148,6 +148,9 @@ h2 {
 }
 
 .eyebrow--claro { color: var(--blue-light); }
+
+/* Modo claro: etiquetas pequenas num azul mais fechado, para ter contraste de 4,5:1 */
+:root[data-theme="light"] .eyebrow:not(.eyebrow--claro) { color: #005fbf; }
 
 .head { max-width: 880px; margin-bottom: 64px; }
 .head--center { margin-inline: auto; text-align: center; }
@@ -1041,7 +1044,7 @@ main {
 
 .funil-final { background: var(--blue) !important; border-color: var(--blue) !important; }
 .funil-final .funil-ico { background: #fff; color: var(--blue); border-color: #fff; }
-.funil-final p { color: rgba(255, 255, 255, 0.85) !important; }
+.funil-final p { color: #fff !important; }
 
 /* ==========================================================
    SUPORTE + CANAIS
@@ -1156,7 +1159,9 @@ main {
   transition: transform 1.1s cubic-bezier(0.45, 0, 0.2, 1), box-shadow 1.4s cubic-bezier(0.45, 0, 0.2, 1);
 }
 
+/* Modo claro: nome das tecnologias mais escuro que no Figma (#8b95a8), para ter contraste de 4,5:1 */
 :root[data-theme="light"] .cardicone3 {
+  color: #5c6577;
   --relevo: 0 4px 12.5px rgba(138, 136, 153, 0.2), 0 10px 5px rgba(138, 136, 153, 0.25);
   --sem-relevo: 0 4px 12.5px rgba(138, 136, 153, 0), 0 10px 5px rgba(138, 136, 153, 0);
 }
@@ -1666,18 +1671,29 @@ main {
     gap: 8px;
   }
 
+  /* Cada botão tem 24px para o dedo; a bolinha visível continua com 8px (::before) */
   .processo-dots button {
-    width: 8px;
-    height: 8px;
+    display: grid;
+    place-items: center;
+    min-width: 24px;
+    height: 24px;
+    margin: 0 -4px;
     padding: 0;
     border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .processo-dots button::before {
+    content: "";
+    width: 8px;
+    height: 8px;
     border-radius: 999px;
     background: var(--line);
-    cursor: pointer;
     transition: width 0.3s var(--ease), background 0.3s;
   }
 
-  .processo-dots button.ativo { width: 26px; background: var(--accent); }
+  .processo-dots button.ativo::before { width: 26px; background: var(--accent); }
 
   /* Chamada: janelas rodando em duas faixas, texto livre no meio */
   .sessao-cards { display: block; min-height: 0; padding: var(--section) 0; }
