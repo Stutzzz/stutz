@@ -75,9 +75,12 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/ClashDisplay-Medium.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="style.css">
-  <script src="cookies.js"></script>
+  <script src="cookies.js" defer></script>
   <script>
     document.documentElement.classList.add("carregando");
     setTimeout(function () { document.documentElement.classList.remove("carregando"); }, 8000);
@@ -155,7 +158,7 @@
       <main id="home">
         <section class="hero">
           <div class="imgBackground">
-            <img src="assets/img/bg-hero.webp" alt="">
+            <img width="1920" height="1080" src="assets/img/bg-hero.webp" alt="">
           </div>
 
           <div class="hero-conteudo">
@@ -167,7 +170,7 @@
             <p>Criação de sites e landing pages programados do zero, com código próprio, carregamento rápido
               e design pensado para transformar visita em contato.</p>
             <div class="botoes">
-              <a class="btn-principal btn-principal--branco" href="#contato" data-whats data-local="hero"><span>Solicitar orçamento</span><img src="assets/img/seta-branca.svg" alt=""></a>
+              <a class="btn-principal btn-principal--branco" href="#contato" data-whats data-local="hero"><span>Solicitar orçamento</span><img width="14" height="14" src="assets/img/seta-branca.svg" alt=""></a>
               <a class="btn-secundario btn-secundario--preto" href="#cases">Ver projetos</a>
             </div>
           </div>
@@ -200,8 +203,8 @@
               <a class="projeto-link" href="https://portfolio-dois-indol.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir o site da Fábrica Premium em nova aba">
               <div class="mac shot-fabrica">
                 <div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div>
-                <div class="mac-screen"><img src="assets/img/fabrica-desktop.webp" alt="Site da Fábrica Premium no computador" loading="lazy"></div>
-                <div class="phone"><div class="phone-screen"><img class="print-celular" src="assets/img/fabrica-celular.webp" alt="Site da Fábrica Premium no celular" loading="lazy"></div></div>
+                <div class="mac-screen"><img width="1200" height="600" src="assets/img/fabrica-desktop.webp" alt="Site da Fábrica Premium no computador" loading="lazy"></div>
+                <div class="phone"><div class="phone-screen"><img width="300" height="600" class="print-celular" src="assets/img/fabrica-celular.webp" alt="Site da Fábrica Premium no celular" loading="lazy"></div></div>
               </div>
               </a>
             </article>
@@ -210,8 +213,8 @@
               <a class="projeto-link" href="https://roda-rock.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir o site do Roda Rock em nova aba">
               <div class="mac shot-rodarock">
                 <div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div>
-                <div class="mac-screen"><img src="assets/img/rodarock-desktop.webp" alt="Site do Roda Rock no computador" loading="lazy"></div>
-                <div class="phone"><div class="phone-screen"><img class="print-celular" src="assets/img/rodarock-celular.webp" alt="Site do Roda Rock no celular" loading="lazy"></div></div>
+                <div class="mac-screen"><img width="1200" height="600" src="assets/img/rodarock-desktop.webp" alt="Site do Roda Rock no computador" loading="lazy"></div>
+                <div class="phone"><div class="phone-screen"><img width="300" height="571" class="print-celular" src="assets/img/rodarock-celular.webp" alt="Site do Roda Rock no celular" loading="lazy"></div></div>
               </div>
               </a>
             </article>
@@ -220,8 +223,8 @@
               <a class="projeto-link" href="https://icorefisio.com.br/" target="_blank" rel="noopener" aria-label="Abrir o site da Icore Fisioterapia em nova aba">
               <div class="mac shot-icore">
                 <div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div>
-                <div class="mac-screen"><img src="assets/img/icore-desktop.webp" alt="Site da Icore Fisioterapia no computador" loading="lazy"></div>
-                <div class="phone"><div class="phone-screen"><img class="print-celular" src="assets/img/icore-celular.webp" alt="Site da Icore Fisioterapia no celular" loading="lazy"></div></div>
+                <div class="mac-screen"><img width="1200" height="600" src="assets/img/icore-desktop.webp" alt="Site da Icore Fisioterapia no computador" loading="lazy"></div>
+                <div class="phone"><div class="phone-screen"><img width="300" height="600" class="print-celular" src="assets/img/icore-celular.webp" alt="Site da Icore Fisioterapia no celular" loading="lazy"></div></div>
               </div>
               </a>
             </article>
@@ -230,8 +233,8 @@
               <a class="projeto-link" href="https://nutricionista-beige-iota.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir o site da nutricionista em nova aba">
               <div class="mac shot-nutri">
                 <div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div>
-                <div class="mac-screen"><img src="assets/img/nutricionista-hero.webp" alt="Site da nutricionista no computador" loading="lazy"></div>
-                <div class="phone"><div class="phone-screen"><img class="print-celular" src="assets/img/nutricionista-mobile.webp" alt="Site da nutricionista no celular" loading="lazy"></div></div>
+                <div class="mac-screen"><img width="1200" height="600" src="assets/img/nutricionista-hero.webp" alt="Site da nutricionista no computador" loading="lazy"></div>
+                <div class="phone"><div class="phone-screen"><img width="300" height="622" class="print-celular" src="assets/img/nutricionista-mobile.webp" alt="Site da nutricionista no celular" loading="lazy"></div></div>
               </div>
               </a>
             </article>
@@ -240,8 +243,8 @@
               <a class="projeto-link" href="https://clinicaluanaromeiro.com.br/" target="_blank" rel="noopener" aria-label="Abrir o site da Clínica Luana Romeiro em nova aba">
               <div class="mac shot-luana">
                 <div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div>
-                <div class="mac-screen"><img src="assets/img/luana-desktop.webp" alt="Site da Clínica Luana Romeiro no computador" loading="lazy"></div>
-                <div class="phone"><div class="phone-screen"><img class="print-celular" src="assets/img/luana-celular.webp" alt="Site da Clínica Luana Romeiro no celular" loading="lazy"></div></div>
+                <div class="mac-screen"><img width="1200" height="600" src="assets/img/luana-desktop.webp" alt="Site da Clínica Luana Romeiro no computador" loading="lazy"></div>
+                <div class="phone"><div class="phone-screen"><img width="300" height="600" class="print-celular" src="assets/img/luana-celular.webp" alt="Site da Clínica Luana Romeiro no celular" loading="lazy"></div></div>
               </div>
               </a>
             </article>
@@ -396,22 +399,22 @@
             <h2 class="textoAnimado">Seu projeto pode ser o <span class="destaque">próximo</span></h2>
             <p>Do primeiro rascunho ao deploy: cada entrega é pensada para ser rápida, bonita e funcional.</p>
             <div class="botoes">
-              <a class="btn-principal" href="#contato" data-whats data-local="projeto-proximo"><span>Solicitar orçamento</span><img src="assets/img/seta-branca.svg" alt=""></a>
+              <a class="btn-principal" href="#contato" data-whats data-local="projeto-proximo"><span>Solicitar orçamento</span><img width="14" height="14" src="assets/img/seta-branca.svg" alt=""></a>
             </div>
             <div class="indicador-scroll">SCROLL</div>
           </div>
 
           <div class="linha-cards linha-1">
-            <div class="xcard card-left"><a class="projeto-link" href="https://portfolio-dois-indol.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir o site da Fábrica Premium em nova aba"><div class="mac shot-fabrica"><div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div><div class="mac-screen"><img src="assets/img/fabrica-desktop.webp" alt="" loading="lazy"></div></div></a></div>
-            <div class="xcard card-right"><a class="projeto-link" href="https://icorefisio.com.br/" target="_blank" rel="noopener" aria-label="Abrir o site da Icore Fisioterapia em nova aba"><div class="mac shot-icore"><div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div><div class="mac-screen"><img src="assets/img/icore-desktop.webp" alt="" loading="lazy"></div></div></a></div>
+            <div class="xcard card-left"><a class="projeto-link" href="https://portfolio-dois-indol.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir o site da Fábrica Premium em nova aba"><div class="mac shot-fabrica"><div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div><div class="mac-screen"><img width="1200" height="600" src="assets/img/fabrica-desktop.webp" alt="" loading="lazy"></div></div></a></div>
+            <div class="xcard card-right"><a class="projeto-link" href="https://icorefisio.com.br/" target="_blank" rel="noopener" aria-label="Abrir o site da Icore Fisioterapia em nova aba"><div class="mac shot-icore"><div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div><div class="mac-screen"><img width="1200" height="600" src="assets/img/icore-desktop.webp" alt="" loading="lazy"></div></div></a></div>
           </div>
           <div class="linha-cards linha-2">
-            <div class="xcard card-left"><a class="projeto-link" href="https://nutricionista-beige-iota.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir o site da nutricionista em nova aba"><div class="mac shot-nutri"><div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div><div class="mac-screen"><img src="assets/img/nutricionista-hero.webp" alt="" loading="lazy"></div></div></a></div>
-            <div class="xcard card-right"><a class="projeto-link" href="https://clinicaluanaromeiro.com.br/" target="_blank" rel="noopener" aria-label="Abrir o site da Clínica Luana Romeiro em nova aba"><div class="mac shot-luana"><div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div><div class="mac-screen"><img src="assets/img/luana-desktop.webp" alt="" loading="lazy"></div></div></a></div>
+            <div class="xcard card-left"><a class="projeto-link" href="https://nutricionista-beige-iota.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir o site da nutricionista em nova aba"><div class="mac shot-nutri"><div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div><div class="mac-screen"><img width="1200" height="600" src="assets/img/nutricionista-hero.webp" alt="" loading="lazy"></div></div></a></div>
+            <div class="xcard card-right"><a class="projeto-link" href="https://clinicaluanaromeiro.com.br/" target="_blank" rel="noopener" aria-label="Abrir o site da Clínica Luana Romeiro em nova aba"><div class="mac shot-luana"><div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div><div class="mac-screen"><img width="1200" height="600" src="assets/img/luana-desktop.webp" alt="" loading="lazy"></div></div></a></div>
           </div>
           <div class="linha-cards linha-3">
-            <div class="xcard card-left"><a class="projeto-link" href="https://roda-rock.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir o site do Roda Rock em nova aba"><div class="mac shot-rodarock"><div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div><div class="mac-screen"><img src="assets/img/rodarock-desktop.webp" alt="" loading="lazy"></div></div></a></div>
-            <div class="xcard card-right"><a class="projeto-link" href="https://portfolio-dois-indol.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir o site da Fábrica Premium em nova aba"><div class="mac shot-fabrica"><div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div><div class="mac-screen"><img src="assets/img/fabrica-desktop.webp" alt="" loading="lazy"></div></div></a></div>
+            <div class="xcard card-left"><a class="projeto-link" href="https://roda-rock.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir o site do Roda Rock em nova aba"><div class="mac shot-rodarock"><div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div><div class="mac-screen"><img width="1200" height="600" src="assets/img/rodarock-desktop.webp" alt="" loading="lazy"></div></div></a></div>
+            <div class="xcard card-right"><a class="projeto-link" href="https://portfolio-dois-indol.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir o site da Fábrica Premium em nova aba"><div class="mac shot-fabrica"><div class="mac-bar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="mac-url"></span></div><div class="mac-screen"><img width="1200" height="600" src="assets/img/fabrica-desktop.webp" alt="" loading="lazy"></div></div></a></div>
           </div>
         </div>
       </section>
@@ -495,7 +498,7 @@
           <h2 class="textoAnimado">Quem tirou o site do papel, <span class="destaque">recomenda</span></h2>
           <p class="lead">Mensagens de clientes depois que o site foi para o ar.</p>
           <div class="botoes fb-cta">
-            <a class="btn-principal" href="#contato" data-whats data-local="feedbacks"><span>Quero um site assim</span><img src="assets/img/seta-branca.svg" alt=""></a>
+            <a class="btn-principal" href="#contato" data-whats data-local="feedbacks"><span>Quero um site assim</span><img width="14" height="14" src="assets/img/seta-branca.svg" alt=""></a>
           </div>
         </div>
 
@@ -606,7 +609,7 @@
         </div>
 
         <div class="footer-bottom-section">
-          <div class="fb-logo"><img src="assets/img/logo-stutz.webp" alt="Stutz Web"></div>
+          <div class="fb-logo"><img width="408" height="120" src="assets/img/logo-stutz.webp" alt="Stutz Web"></div>
           <div class="fb-socials">
             <a href="https://www.instagram.com/stutz_web/" target="_blank" rel="noopener">Instagram</a>
             <a href="https://www.facebook.com/profile.php?id=61596590780514" target="_blank" rel="noopener">Facebook</a>
