@@ -275,7 +275,20 @@ function videoDeFundo(container, src) {
 
 window.addEventListener("load", () => {
   videoDeFundo(document.querySelector(".hero .imgBackground"), "./assets/img/video-hero.mp4");
-  videoDeFundo(document.querySelector("footer .imgBackground"), "./assets/img/video-footer.mp4");
+
+  // O vídeo do rodapé só baixa quando a pessoa chega perto dele (cerca de uma tela antes)
+  const fundoRodape = document.querySelector("footer .imgBackground");
+  if (fundoRodape && "IntersectionObserver" in window) {
+    const observador = new IntersectionObserver((entradas) => {
+      if (!entradas.some((e) => e.isIntersecting)) return;
+      observador.disconnect();
+      videoDeFundo(fundoRodape, "./assets/img/video-footer.mp4");
+    }, { rootMargin: "0px 0px 100% 0px" });
+    observador.observe(fundoRodape);
+  } else {
+    videoDeFundo(fundoRodape, "./assets/img/video-footer.mp4");
+  }
+
   if (animar) ScrollTrigger.refresh();
 });
 
