@@ -1,0 +1,5 @@
+# Libera o site inteiro para os buscadores e mostra onde fica o mapa do site
+User-agent: *
+Allow: /
+
+Sitemap: https://stutz-web.vercel.app/sitemap.xml
