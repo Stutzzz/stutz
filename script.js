@@ -237,11 +237,13 @@ faqRows.forEach((row) => {
 // ==========================================
 const cardsCanais = document.querySelectorAll(".cardicone3");
 if (cardsCanais.length) {
+  // Ordem da grade: HTML CSS JavaScript / React Node.js WordPress / PHP Figma SEO / GSAP APIs Cloud.
+  // O primeiro estado é o do Figma (React, Node.js, SEO e GSAP em relevo).
   const estados = [
-    [4, 8, 9],
-    [1, 5, 9],
-    [2, 6, 10],
-    [5, 6, 7],
+    [3, 4, 8, 9],
+    [0, 5, 7, 11],
+    [2, 3, 7, 10],
+    [1, 5, 6, 9],
   ];
   let estadoAtual = 0;
 

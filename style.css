@@ -1067,25 +1067,21 @@ main {
   width: 50%;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 27px;
   padding: 32px 26px;
   border-radius: 28px;
   background: var(--paper);
 }
 
-.card3-ico {
-  display: grid;
-  place-items: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 18px;
-  background: var(--blue-tint);
-  border: 1.5px solid var(--edge);
-  color: var(--accent);
-}
+/* Ilustração em linha do Figma: uma versão por tema (o fundo dela é a cor do card) */
+.card3-ilustra { display: flex; align-items: center; width: 120px; height: 120px; }
+.card3-ilustra img { display: block; width: 120px; height: auto; }
+.so-claro { display: none !important; }
+:root[data-theme="light"] .so-claro { display: block !important; }
+:root[data-theme="light"] .so-escuro { display: none !important; }
 
-.card3 h3 { font-size: clamp(1.2rem, 1.6vw, 1.5rem); }
-.card3 p { margin-top: 10px; font-size: 15px; color: var(--muted); }
+.card3 h3 { font-size: clamp(1.2rem, 1.6vw, 1.5rem); line-height: 1.1; max-width: 240px; }
+.card3 p { margin-top: 10px; font-size: 15px; line-height: 1.6; color: var(--muted); }
 
 /* Recorte no canto com a seta (o "notch" do site original) */
 .card3 .icone {
@@ -1122,14 +1118,22 @@ main {
   color: #fff;
 }
 
+.seta img { width: 22px; height: 22px; }
+
 .sec3 .direita {
   width: 40%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
+/* Tecnologias (Figma): só o nome, sem borda; os blocos "ativos" ganham relevo com sombra */
 .cardicone3 {
+  --relevo: 0 4px 12.5px #030507, 0 10px 5px #030507;
+  --sem-relevo: 0 4px 12.5px rgba(3, 5, 7, 0), 0 10px 5px rgba(3, 5, 7, 0);
   justify-self: center;
   display: flex;
   justify-content: center;
@@ -1139,22 +1143,28 @@ main {
   aspect-ratio: 1 / 1;
   padding: 8px;
   text-align: center;
-  border-radius: 20px;
-  border: 1.5px solid var(--line);
-  background: var(--paper);
+  border-radius: 40px;
+  background: var(--bg);
   font-family: var(--display);
   font-weight: 500;
-  font-size: clamp(0.85rem, 1.15vw, 1.1rem);
-  color: var(--muted);
-  transition: all 1s;
+  font-size: clamp(0.95rem, 1.5vw, 1.25rem);
+  line-height: 1.4;
+  color: #8b95a8;
+  /* Sem relevo: mesma sombra, só que transparente, para ela surgir aos poucos */
+  box-shadow: var(--sem-relevo);
+  transform: translateY(0);
+  transition: transform 1.1s cubic-bezier(0.45, 0, 0.2, 1), box-shadow 1.4s cubic-bezier(0.45, 0, 0.2, 1);
 }
 
-.cardicone3.ativo {
-  transform: translateY(-12px);
-  color: #fff;
-  background: var(--blue);
-  border-color: var(--edge);
-  box-shadow: 6px 6px 0 0 var(--hard);
+:root[data-theme="light"] .cardicone3 {
+  --relevo: 0 4px 12.5px rgba(138, 136, 153, 0.2), 0 10px 5px rgba(138, 136, 153, 0.25);
+  --sem-relevo: 0 4px 12.5px rgba(138, 136, 153, 0), 0 10px 5px rgba(138, 136, 153, 0);
+}
+
+.cardicone3.ativo { transform: translateY(-10px); box-shadow: var(--relevo); }
+
+@media (max-width: 768px) {
+  .cardicone3 { border-radius: 28px; }
 }
 
 /* ==========================================================
