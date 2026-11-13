@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário do projeto | Stutz Web</title>
+  <meta name="description" content="Envie as informações da sua empresa para a Stutz Web criar o seu site.">
+  <link rel="canonical" href="https://stutz-web.vercel.app/formulario/">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#02050b">
+
+  <!-- Prévia ao compartilhar o link -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Stutz Web">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:url" content="https://stutz-web.vercel.app/formulario/">
+  <meta property="og:title" content="Formulário do projeto | Stutz Web">
+  <meta property="og:description" content="Envie as informações da sua empresa para a Stutz Web criar o seu site.">
+  <meta property="og:image" content="https://stutz-web.vercel.app/assets/img/og-stutz.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="/assets/fonts/ClashDisplay-Medium.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/cookies.js" defer></script>
+  <script>
+    // Aplica o tema salvo antes de desenhar a página (padrão: escuro)
+    try {
+      var temaSalvo = localStorage.getItem("stutz-tema");
+      if (temaSalvo === "light" || temaSalvo === "dark") document.documentElement.setAttribute("data-theme", temaSalvo);
+    } catch (e) {}
+  </script>
+</head>
+
+<body>
+
+  <!-- ================= NAV (fora do smooth-wrapper para ficar fixa) ================= -->
+  <header class="nav-wrap">
+    <nav class="nav" aria-label="Principal">
+      <a href="/" class="nav-logo"><img src="/assets/img/logo-stutz.webp" alt="STUTZ" width="102" height="30"></a>
+      <div class="nav-links">
+        <a href="/#cases">Portfólio</a>
+        <a href="/#servicos">Serviços</a>
+        <a href="/planos/">Planos</a>
+        <a href="/#processo">Como funciona</a>
+        <a href="/#faq">FAQ</a>
+      </div>
+      <button class="theme-toggle" type="button" aria-label="Mudar para o modo claro" title="Mudar tema">
+        <svg class="ico-sol" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="ico-lua" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a href="#contato" class="nav-cta" data-whats data-local="menu-topo">Solicitar orçamento</a>
+      <button class="menu-btn" aria-label="Abrir menu" aria-expanded="false">
+        <span class="linha linha-1"></span>
+        <span class="linha linha-2"></span>
+        <span class="linha linha-3"></span>
+      </button>
+    </nav>
+  </header>
+
+  <div class="menu-popup" aria-hidden="true">
+    <nav class="menu-nav" aria-label="Menu">
+      <a href="/#cases">Portfólio</a>
+      <a href="/#servicos">Serviços</a>
+      <a href="/planos/">Planos</a>
+      <a href="/#processo">Processo</a>
+      <a href="/#faq">FAQ</a>
+      <a href="#contato" class="menu-cta" data-whats data-local="menu-celular">Solicitar orçamento</a>
+    </nav>
+  </div>
+
+  <aside aria-label="Contato rápido"><a href="#contato" class="whats-float" aria-label="Falar no WhatsApp" data-whats data-local="botao-flutuante">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 4.54 0 8.24 3.7 8.24 8.24 0 4.55-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.22-.08-.39-.12-.55.13-.17.24-.64.8-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29Z"/></svg>
+  </a></aside>
+
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+
+      <main id="conteudo">
+      <!-- ================= TOPO DA PÁGINA ================= -->
+      <section class="pagina-topo pagina-topo--form" aria-label="Formulário do projeto">
+        <div class="container">
+          <div class="head head--center">
+            <p class="eyebrow">Formulário do projeto</p>
+            <h1 class="textoAnimado">Conte sobre o seu <span class="destaque">negócio</span></h1>
+            <p class="lead">Leva uns 10 minutos. Com essas informações, a gente monta o seu site. O prazo começa quando recebemos o formulário e a entrada de 50%.</p>
+            <p class="pagina-topo-aviso">Ainda não falou com a gente? Pode preencher assim mesmo: entramos em contato pelo WhatsApp para combinar o valor antes de começar.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FORMULÁRIO EM ETAPAS ================= -->
+      <!-- As respostas vão para a planilha do Google pelo script em ferramentas/planilha-briefing.gs.
+           O endereço do script fica em formulario.js (URL_PLANILHA). -->
+      <section class="briefing" aria-label="Formulário">
+        <div class="container">
+          <div class="briefing-caixa" id="briefing-caixa">
+            <ol class="briefing-progresso" aria-label="Etapas do formulário">
+              <li data-etapa-marcador="plano"><span class="marcador-num">1</span><span class="marcador-nome">Plano</span></li>
+              <li data-etapa-marcador="empresa"><span class="marcador-num">2</span><span class="marcador-nome">Empresa</span></li>
+              <li data-etapa-marcador="marca"><span class="marcador-num">3</span><span class="marcador-nome">Marca</span></li>
+              <li data-etapa-marcador="conteudo"><span class="marcador-num">4</span><span class="marcador-nome">Conteúdo</span></li>
+              <li data-etapa-marcador="redes"><span class="marcador-num">5</span><span class="marcador-nome">Redes</span></li>
+              <li data-etapa-marcador="referencias" data-so-plano="sob-medida"><span class="marcador-num">6</span><span class="marcador-nome">Referências</span></li>
+              <li data-etapa-marcador="revisao"><span class="marcador-num">7</span><span class="marcador-nome">Envio</span></li>
+            </ol>
+
+            <form id="briefing" novalidate>
+              <!-- Campo isca: pessoas não veem; robôs costumam preencher -->
+              <div class="campo-isca" aria-hidden="true"><label for="f-site_url_hp">Não preencha</label><input id="f-site_url_hp" name="site_url_hp" type="text" tabindex="-1" autocomplete="off"></div>
+
+            <section class="etapa" data-etapa="plano" hidden>
+              <h2 class="etapa-titulo" tabindex="-1">Qual plano você escolheu?</h2>
+              <fieldset class="campo campo-grupo" data-rotulo="Plano" data-grupo="plano">
+                <legend>Plano <span class="campo-obrigatorio" aria-hidden="true">*</span></legend>
+                
+                <div class="opcoes">
+                <label class="opcao"><input type="radio" name="plano" value="express" required><span class="opcao-caixa"><strong>Site Express</strong><small>A partir de um template profissional, em até 3 dias úteis</small></span></label>
+                <label class="opcao"><input type="radio" name="plano" value="sob-medida" required><span class="opcao-caixa"><strong>Site Sob Medida</strong><small>Layout criado do zero, em até 7 dias úteis</small></span></label>
+                </div>
+              </fieldset>
+              <fieldset class="campo campo-grupo" data-rotulo="Qual template?" data-grupo="template" data-se="plano:express">
+                <legend>Qual template? <span class="campo-obrigatorio" aria-hidden="true">*</span></legend>
+                <p class="campo-ajuda">Veja as demonstrações na <a href="/planos/#templates" target="_blank" rel="noopener">página de planos</a>.</p>
+                <div class="opcoes">
+                <label class="opcao"><input type="radio" name="template" value="template-1" required><span class="opcao-caixa"><strong>Template 1</strong></span></label>
+                <label class="opcao"><input type="radio" name="template" value="template-2" required><span class="opcao-caixa"><strong>Template 2</strong></span></label>
+                <label class="opcao"><input type="radio" name="template" value="template-3" required><span class="opcao-caixa"><strong>Template 3</strong></span></label>
+                <label class="opcao"><input type="radio" name="template" value="template-4" required><span class="opcao-caixa"><strong>Template 4</strong></span></label>
+                <label class="opcao"><input type="radio" name="template" value="template-5" required><span class="opcao-caixa"><strong>Template 5</strong></span></label>
+                </div>
+              </fieldset>
+              <div class="campo" data-rotulo="Pequenas alterações no template" data-se="plano:express">
+                <label for="f-alteracoes_template">Pequenas alterações no template <span class="campo-opcional">(opcional)</span></label>
+                <p class="campo-ajuda" id="ajuda-alteracoes_template">Ex.: tirar uma seção, trocar a ordem de duas partes, mudar o texto de um botão.</p>
+                <textarea id="f-alteracoes_template" name="alteracoes_template" rows="4" aria-describedby="ajuda-alteracoes_template"></textarea>
+              </div>
+            </section>
+            <section class="etapa" data-etapa="empresa" hidden>
+              <h2 class="etapa-titulo" tabindex="-1">Sobre você e a empresa</h2>
+              <div class="campo" data-rotulo="Seu nome">
+                <label for="f-nome">Seu nome <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                
+                <input id="f-nome" name="nome" type="text" required autocomplete="name">
+              </div>
+              <div class="campo" data-rotulo="Nome da empresa">
+                <label for="f-empresa">Nome da empresa <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                
+                <input id="f-empresa" name="empresa" type="text" required autocomplete="organization">
+              </div>
+              <div class="campo" data-rotulo="CNPJ ou CPF">
+                <label for="f-documento">CNPJ ou CPF <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                <p class="campo-ajuda" id="ajuda-documento">Usado para registrar o domínio no seu nome.</p>
+                <input id="f-documento" name="documento" type="text" required aria-describedby="ajuda-documento" inputmode="numeric">
+              </div>
+              <div class="campo" data-rotulo="WhatsApp">
+                <label for="f-whatsapp">WhatsApp <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                
+                <input id="f-whatsapp" name="whatsapp" type="tel" required autocomplete="tel" placeholder="(11) 90000-0000">
+              </div>
+              <div class="campo" data-rotulo="E-mail">
+                <label for="f-email">E-mail <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                
+                <input id="f-email" name="email" type="email" required autocomplete="email">
+              </div>
+              <fieldset class="campo campo-grupo" data-rotulo="Você já tem site?" data-grupo="tem_site">
+                <legend>Você já tem site? <span class="campo-obrigatorio" aria-hidden="true">*</span></legend>
+                
+                <div class="opcoes">
+                <label class="opcao"><input type="radio" name="tem_site" value="nao" required><span class="opcao-caixa"><strong>Não</strong></span></label>
+                <label class="opcao"><input type="radio" name="tem_site" value="sim" required><span class="opcao-caixa"><strong>Sim</strong></span></label>
+                </div>
+              </fieldset>
+              <div class="campo" data-rotulo="Endereço do site atual" data-se="tem_site:sim">
+                <label for="f-site_atual">Endereço do site atual <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                
+                <input id="f-site_atual" name="site_atual" type="url" required placeholder="https://">
+              </div>
+              <fieldset class="campo campo-grupo" data-rotulo="Você já tem um domínio?" data-grupo="tem_dominio">
+                <legend>Você já tem um domínio? <span class="campo-obrigatorio" aria-hidden="true">*</span></legend>
+                <p class="campo-ajuda">Domínio é o endereço do site, como suaempresa.com.br.</p>
+                <div class="opcoes">
+                <label class="opcao"><input type="radio" name="tem_dominio" value="nao" required><span class="opcao-caixa"><strong>Não</strong></span></label>
+                <label class="opcao"><input type="radio" name="tem_dominio" value="sim" required><span class="opcao-caixa"><strong>Sim</strong></span></label>
+                <label class="opcao"><input type="radio" name="tem_dominio" value="nao-sei" required><span class="opcao-caixa"><strong>Não sei</strong></span></label>
+                </div>
+              </fieldset>
+              <div class="campo" data-rotulo="Qual é o domínio?" data-se="tem_dominio:sim">
+                <label for="f-dominio">Qual é o domínio? <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                
+                <input id="f-dominio" name="dominio" type="text" required placeholder="suaempresa.com.br">
+              </div>
+            </section>
+            <section class="etapa" data-etapa="marca" hidden>
+              <h2 class="etapa-titulo" tabindex="-1">Marca e identidade visual</h2>
+              <div class="campo campo-arquivo" data-rotulo="Logo">
+                <label for="f-logo">Logo <span class="campo-opcional">(opcional)</span></label>
+                <p class="campo-ajuda" id="ajuda-logo">PNG, SVG ou PDF. Se ainda não tiver, pode pular.</p>
+                <input id="f-logo" name="logo" type="file" accept="image/*,.pdf,.svg">
+                <ul class="arquivos-lista" aria-live="polite"></ul>
+              </div>
+              <fieldset class="campo campo-grupo" data-rotulo="Identidade visual" data-grupo="identidade">
+                <legend>Identidade visual <span class="campo-obrigatorio" aria-hidden="true">*</span></legend>
+                
+                <div class="opcoes">
+                <label class="opcao"><input type="radio" name="identidade" value="manual" required><span class="opcao-caixa"><strong>Tenho um manual ou guia da marca</strong><small>Vou enviar os arquivos</small></span></label>
+                <label class="opcao"><input type="radio" name="identidade" value="cores" required><span class="opcao-caixa"><strong>Tenho só as cores</strong><small>Vou dizer quais são</small></span></label>
+                <label class="opcao"><input type="radio" name="identidade" value="nao" required><span class="opcao-caixa"><strong>Não tenho</strong><small>A gente sugere a partir da sua logo e do seu ramo</small></span></label>
+                </div>
+              </fieldset>
+              <div class="campo campo-arquivo" data-rotulo="Manual ou guia da marca" data-se="identidade:manual">
+                <label for="f-manual">Manual ou guia da marca <span class="campo-opcional">(opcional)</span></label>
+                
+                <input id="f-manual" name="manual" type="file" accept="image/*,.pdf,.svg" multiple>
+                <ul class="arquivos-lista" aria-live="polite"></ul>
+              </div>
+              <div class="campo" data-rotulo="Quais são as cores?" data-se="identidade:cores">
+                <label for="f-cores">Quais são as cores? <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                <p class="campo-ajuda" id="ajuda-cores">Pode ser o nome ou o código da cor (ex.: azul-marinho, #0a74e6).</p>
+                <input id="f-cores" name="cores" type="text" required aria-describedby="ajuda-cores">
+              </div>
+              <div class="campo" data-rotulo="Estilo ou cores que você gosta">
+                <label for="f-estilo">Estilo ou cores que você gosta <span class="campo-opcional">(opcional)</span></label>
+                <p class="campo-ajuda" id="ajuda-estilo">Ex.: sério e elegante, colorido e jovem, minimalista.</p>
+                <textarea id="f-estilo" name="estilo" rows="4" aria-describedby="ajuda-estilo"></textarea>
+              </div>
+            </section>
+            <section class="etapa" data-etapa="conteudo" hidden>
+              <h2 class="etapa-titulo" tabindex="-1">Conteúdo do site</h2>
+              <div class="campo" data-rotulo="Descrição da empresa">
+                <label for="f-descricao">Descrição da empresa <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                <p class="campo-ajuda" id="ajuda-descricao">O que a empresa faz, há quanto tempo, o que a diferencia.</p>
+                <textarea id="f-descricao" name="descricao" rows="4" required aria-describedby="ajuda-descricao"></textarea>
+              </div>
+              <div class="campo" data-rotulo="Serviços ou produtos">
+                <label for="f-servicos">Serviços ou produtos <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                <p class="campo-ajuda" id="ajuda-servicos">Um por linha, com uma descrição curta se quiser.</p>
+                <textarea id="f-servicos" name="servicos" rows="4" required aria-describedby="ajuda-servicos"></textarea>
+              </div>
+              <fieldset class="campo campo-grupo" data-rotulo="Principal objetivo do site" data-grupo="objetivo">
+                <legend>Principal objetivo do site <span class="campo-obrigatorio" aria-hidden="true">*</span></legend>
+                
+                <div class="opcoes">
+                <label class="opcao"><input type="radio" name="objetivo" value="whatsapp" required><span class="opcao-caixa"><strong>Receber contatos no WhatsApp</strong></span></label>
+                <label class="opcao"><input type="radio" name="objetivo" value="agendamento" required><span class="opcao-caixa"><strong>Receber agendamentos</strong></span></label>
+                <label class="opcao"><input type="radio" name="objetivo" value="vender" required><span class="opcao-caixa"><strong>Vender produtos</strong></span></label>
+                <label class="opcao"><input type="radio" name="objetivo" value="apresentar" required><span class="opcao-caixa"><strong>Apresentar a empresa</strong></span></label>
+                <label class="opcao"><input type="radio" name="objetivo" value="outro" required><span class="opcao-caixa"><strong>Outro</strong></span></label>
+                </div>
+              </fieldset>
+              <div class="campo" data-rotulo="Qual objetivo?" data-se="objetivo:outro">
+                <label for="f-objetivo_outro">Qual objetivo? <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                
+                <input id="f-objetivo_outro" name="objetivo_outro" type="text" required>
+              </div>
+              <div class="campo" data-rotulo="Para quem é o site?">
+                <label for="f-publico">Para quem é o site? <span class="campo-opcional">(opcional)</span></label>
+                <p class="campo-ajuda" id="ajuda-publico">Quem são os seus clientes (ex.: mulheres de 25 a 45 anos, empresas da região).</p>
+                <input id="f-publico" name="publico" type="text" aria-describedby="ajuda-publico">
+              </div>
+              <fieldset class="campo campo-grupo" data-rotulo="Imagens do site" data-grupo="imagens">
+                <legend>Imagens do site <span class="campo-obrigatorio" aria-hidden="true">*</span></legend>
+                
+                <div class="opcoes">
+                <label class="opcao"><input type="radio" name="imagens" value="enviar" required><span class="opcao-caixa"><strong>Vou enviar as minhas fotos</strong></span></label>
+                <label class="opcao"><input type="radio" name="imagens" value="stutz" required><span class="opcao-caixa"><strong>Quero que a Stutz cuide das imagens</strong><small>Valor combinado na conversa</small></span></label>
+                <label class="opcao"><input type="radio" name="imagens" value="nao-sei" required><span class="opcao-caixa"><strong>Ainda não sei</strong></span></label>
+                </div>
+              </fieldset>
+              <div class="campo campo-arquivo" data-rotulo="Suas fotos" data-se="imagens:enviar">
+                <label for="f-fotos">Suas fotos <span class="campo-opcional">(opcional)</span></label>
+                <p class="campo-ajuda" id="ajuda-fotos">Até 10 MB por arquivo. Se forem muitas, mande o restante pelo WhatsApp.</p>
+                <input id="f-fotos" name="fotos" type="file" accept="image/*" multiple>
+                <ul class="arquivos-lista" aria-live="polite"></ul>
+              </div>
+              <fieldset class="campo campo-grupo" data-rotulo="Textos do site" data-grupo="textos">
+                <legend>Textos do site <span class="campo-obrigatorio" aria-hidden="true">*</span></legend>
+                
+                <div class="opcoes">
+                <label class="opcao"><input type="radio" name="textos" value="enviar" required><span class="opcao-caixa"><strong>Vou enviar os textos</strong></span></label>
+                <label class="opcao"><input type="radio" name="textos" value="stutz" required><span class="opcao-caixa"><strong>Quero que a Stutz escreva</strong><small>Valor combinado na conversa</small></span></label>
+                </div>
+              </fieldset>
+              <div class="campo" data-rotulo="Seus textos" data-se="textos:enviar">
+                <label for="f-textos_cliente">Seus textos <span class="campo-opcional">(opcional)</span></label>
+                <p class="campo-ajuda" id="ajuda-textos_cliente">Cole aqui ou envie um arquivo logo abaixo.</p>
+                <textarea id="f-textos_cliente" name="textos_cliente" rows="4" aria-describedby="ajuda-textos_cliente"></textarea>
+              </div>
+              <div class="campo campo-arquivo" data-rotulo="Arquivo com os textos" data-se="textos:enviar">
+                <label for="f-textos_arquivo">Arquivo com os textos <span class="campo-opcional">(opcional)</span></label>
+                
+                <input id="f-textos_arquivo" name="textos_arquivo" type="file" accept=".pdf,.doc,.docx,.txt,.odt" multiple>
+                <ul class="arquivos-lista" aria-live="polite"></ul>
+              </div>
+            </section>
+            <section class="etapa" data-etapa="redes" hidden>
+              <h2 class="etapa-titulo" tabindex="-1">Redes sociais e contato</h2>
+              <div class="campo" data-rotulo="Instagram">
+                <label for="f-instagram">Instagram <span class="campo-opcional">(opcional)</span></label>
+                
+                <input id="f-instagram" name="instagram" type="text" placeholder="@suaempresa">
+              </div>
+              <div class="campo" data-rotulo="Facebook">
+                <label for="f-facebook">Facebook <span class="campo-opcional">(opcional)</span></label>
+                
+                <input id="f-facebook" name="facebook" type="text" placeholder="Link da página">
+              </div>
+              <div class="campo" data-rotulo="LinkedIn">
+                <label for="f-linkedin">LinkedIn <span class="campo-opcional">(opcional)</span></label>
+                
+                <input id="f-linkedin" name="linkedin" type="text">
+              </div>
+              <div class="campo" data-rotulo="TikTok">
+                <label for="f-tiktok">TikTok <span class="campo-opcional">(opcional)</span></label>
+                
+                <input id="f-tiktok" name="tiktok" type="text">
+              </div>
+              <div class="campo" data-rotulo="YouTube">
+                <label for="f-youtube">YouTube <span class="campo-opcional">(opcional)</span></label>
+                
+                <input id="f-youtube" name="youtube" type="text">
+              </div>
+              <div class="campo" data-rotulo="Outras redes ou links">
+                <label for="f-outras_redes">Outras redes ou links <span class="campo-opcional">(opcional)</span></label>
+                
+                <textarea id="f-outras_redes" name="outras_redes" rows="4"></textarea>
+              </div>
+              <div class="campo" data-rotulo="Endereço">
+                <label for="f-endereco">Endereço <span class="campo-opcional">(opcional)</span></label>
+                <p class="campo-ajuda" id="ajuda-endereco">Se atende no local. Aparece no site e no mapa.</p>
+                <input id="f-endereco" name="endereco" type="text" aria-describedby="ajuda-endereco">
+              </div>
+              <div class="campo" data-rotulo="Horário de atendimento">
+                <label for="f-horario">Horário de atendimento <span class="campo-opcional">(opcional)</span></label>
+                
+                <input id="f-horario" name="horario" type="text" placeholder="Seg a sex, das 9h às 18h">
+              </div>
+            </section>
+            <section class="etapa" data-etapa="referencias" data-so-plano="sob-medida" hidden>
+              <h2 class="etapa-titulo" tabindex="-1">Concorrentes e referências</h2>
+              <div class="campo" data-rotulo="Sites de concorrentes">
+                <label for="f-concorrentes">Sites de concorrentes <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                <p class="campo-ajuda" id="ajuda-concorrentes">Um link por linha.</p>
+                <textarea id="f-concorrentes" name="concorrentes" rows="4" required aria-describedby="ajuda-concorrentes"></textarea>
+              </div>
+              <div class="campo" data-rotulo="Sites que você gosta e o que gostou em cada um">
+                <label for="f-referencias">Sites que você gosta e o que gostou em cada um <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                <p class="campo-ajuda" id="ajuda-referencias">Um por linha. Ex.: site.com.br: gostei das cores e do topo com vídeo.</p>
+                <textarea id="f-referencias" name="referencias" rows="4" required aria-describedby="ajuda-referencias"></textarea>
+              </div>
+              <div class="campo" data-rotulo="Páginas ou seções que o site precisa ter">
+                <label for="f-paginas">Páginas ou seções que o site precisa ter <span class="campo-opcional">(opcional)</span></label>
+                <p class="campo-ajuda" id="ajuda-paginas">Ex.: início, sobre, serviços, depoimentos, contato.</p>
+                <textarea id="f-paginas" name="paginas" rows="4" aria-describedby="ajuda-paginas"></textarea>
+              </div>
+              <fieldset class="campo campo-grupo" data-rotulo="Funcionalidades" data-grupo="funcionalidades">
+                <legend>Funcionalidades <span class="campo-opcional">(opcional)</span></legend>
+                
+                <div class="opcoes">
+                <label class="opcao"><input type="checkbox" name="funcionalidades" value="contato"><span class="opcao-caixa"><strong>Formulário de contato</strong></span></label>
+                <label class="opcao"><input type="checkbox" name="funcionalidades" value="agendamento"><span class="opcao-caixa"><strong>Agendamento online</strong></span></label>
+                <label class="opcao"><input type="checkbox" name="funcionalidades" value="blog"><span class="opcao-caixa"><strong>Blog</strong></span></label>
+                <label class="opcao"><input type="checkbox" name="funcionalidades" value="galeria"><span class="opcao-caixa"><strong>Galeria ou portfólio</strong></span></label>
+                <label class="opcao"><input type="checkbox" name="funcionalidades" value="depoimentos"><span class="opcao-caixa"><strong>Depoimentos</strong></span></label>
+                <label class="opcao"><input type="checkbox" name="funcionalidades" value="idiomas"><span class="opcao-caixa"><strong>Mais de um idioma</strong></span></label>
+                <label class="opcao"><input type="checkbox" name="funcionalidades" value="outra"><span class="opcao-caixa"><strong>Outra</strong></span></label>
+                </div>
+              </fieldset>
+              <div class="campo" data-rotulo="Qual funcionalidade?" data-se="funcionalidades:outra">
+                <label for="f-funcionalidades_outra">Qual funcionalidade? <span class="campo-obrigatorio" aria-hidden="true">*</span></label>
+                
+                <input id="f-funcionalidades_outra" name="funcionalidades_outra" type="text" required>
+              </div>
+            </section>
+            <section class="etapa" data-etapa="revisao" hidden>
+              <h2 class="etapa-titulo" tabindex="-1">Confira e envie</h2>
+              <p class="etapa-texto">Confira as respostas antes de enviar. Se precisar corrigir algo, é só voltar.</p>
+              <div class="revisao-lista" id="revisao-lista"></div>
+              <label class="aceite">
+                <input type="checkbox" name="aceite" id="f-aceite" required>
+                <span>Autorizo a Stutz Web a usar essas informações para criar o meu site e falar comigo sobre o projeto.</span>
+              </label>
+            </section>
+
+              <p class="briefing-erro" role="alert" hidden></p>
+
+              <div class="briefing-acoes">
+                <button type="button" class="btn-secundario" data-voltar>Voltar</button>
+                <button type="button" class="btn-principal" data-avancar><span>Continuar</span><img src="/assets/img/seta-branca.svg" alt="" width="14" height="14"></button>
+                <button type="submit" class="btn-principal" data-enviar hidden><span>Enviar formulário</span><img src="/assets/img/seta-branca.svg" alt="" width="14" height="14"></button>
+              </div>
+            </form>
+
+            <div class="briefing-sucesso" id="briefing-sucesso" hidden tabindex="-1">
+              <span class="briefing-sucesso-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+              <h2>Recebemos o seu formulário!</h2>
+              <p>Agora é só confirmar a entrada de 50% pelo WhatsApp. O prazo começa assim que ela for confirmada.</p>
+              <a class="btn-principal" id="briefing-sucesso-whats" href="#contato" target="_blank" rel="noopener"><span>Falar no WhatsApp</span><img src="/assets/img/seta-branca.svg" alt="" width="14" height="14"></a>
+            </div>
+          </div>
+        </div>
+      </section>
+      </main>
+
+      <!-- ================= FOOTER / CONTATO ================= -->
+      <footer class="site-footer" id="contato">
+        <div class="footer-top">
+          <div class="imgBackground"></div>
+          <p class="footer-ready">Pronto para o próximo passo?</p>
+
+          <div class="footer-giant-section">
+            <p class="giant-bg-text" aria-hidden="true">CONTATO</p>
+            <a href="mailto:contato@stutz.com.br" class="footer-contact-btn" data-whats data-local="rodape-fale-conosco">
+              <span class="fc-texto">Fale conosco</span>
+              <span class="btn-arrow-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </span>
+            </a>
+          </div>
+
+          <nav class="footer-nav-links" aria-label="Rodapé">
+            <a href="/">Home</a>
+            <svg class="footer-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" /></svg>
+            <a href="/#cases">Portfólio</a>
+            <svg class="footer-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" /></svg>
+            <a href="/#servicos">Serviços</a>
+            <svg class="footer-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" /></svg>
+            <a href="/planos/">Planos</a>
+            <svg class="footer-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" /></svg>
+            <a href="/#processo">Processo</a>
+            <svg class="footer-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" /></svg>
+            <a href="/#faq">FAQ</a>
+          </nav>
+        </div>
+
+        <div class="footer-middle-section">
+          <div class="fm-left">
+            <p>Tem um projeto em mente? Vamos conversar e tirar essa ideia do papel juntos.</p>
+          </div>
+          <div class="fm-right marquee-container">
+            <div class="marquee-content" id="marquee"></div>
+          </div>
+        </div>
+
+        <div class="footer-bottom-section">
+          <div class="fb-logo"><img width="408" height="120" src="/assets/img/logo-stutz.webp" alt="Stutz Web"></div>
+          <div class="fb-socials">
+            <a href="https://www.instagram.com/stutz_web/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://www.facebook.com/profile.php?id=61596590780514" target="_blank" rel="noopener">Facebook</a>
+            <a href="#contato" data-whats data-local="rodape-redes">WhatsApp</a>
+          </div>
+          <div class="fb-credits"><p>© <span id="ano">2026</span> <strong>Stutz Web</strong>. Todos os direitos reservados. <a href="#" class="link-cookies" data-cookies-abrir>Cookies</a></p></div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ================= AVISO DE COOKIES (LGPD) ================= -->
+  <div class="aviso-cookies" id="aviso-cookies" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
+    <p><strong>Cookies</strong> Usamos cookies para entender como o site é usado e melhorar sua experiência. Você pode aceitar ou recusar.</p>
+    <div class="aviso-cookies-botoes">
+      <button type="button" class="ck-recusar" data-cookies-recusar>Recusar</button>
+      <button type="button" class="ck-aceitar" data-cookies-aceitar>Aceitar</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollSmoother.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/SplitText.min.js"></script>
+  <script src="/script.js"></script>
+  <script src="/formulario.js"></script>
+</body>
+
+</html>

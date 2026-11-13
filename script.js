@@ -16,10 +16,14 @@ if (!animar) document.documentElement.classList.add("sem-animacao");
 // ==========================================
 // CONTEÚDO DINÂMICO (antes das animações)
 // ==========================================
+// Cada botão pode ter a sua própria mensagem em data-whats-msg (ex.: "Quero o Site Express")
+function linkWhatsApp(mensagem) {
+  return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(mensagem || MENSAGEM_WHATS)}`;
+}
+
 if (WHATSAPP) {
-  const link = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(MENSAGEM_WHATS)}`;
   document.querySelectorAll("[data-whats]").forEach((a) => {
-    a.href = link;
+    a.href = linkWhatsApp(a.dataset.whatsMsg);
     a.target = "_blank";
     a.rel = "noopener";
   });
@@ -186,7 +190,8 @@ if (trilhoPassos && bolinhas.length) {
   }));
 }
 
-document.getElementById("ano").textContent = new Date().getFullYear();
+const ano = document.getElementById("ano");
+if (ano) ano.textContent = new Date().getFullYear();
 
 // ==========================================
 // MODO ESCURO / CLARO
@@ -292,7 +297,7 @@ function videoDeFundo(container, src) {
 }
 
 window.addEventListener("load", () => {
-  videoDeFundo(document.querySelector(".hero .imgBackground"), "./assets/img/video-hero.mp4");
+  videoDeFundo(document.querySelector(".hero .imgBackground"), "/assets/img/video-hero.mp4");
 
   // O vídeo do rodapé só baixa quando a pessoa chega perto dele (cerca de uma tela antes)
   const fundoRodape = document.querySelector("footer .imgBackground");
@@ -300,11 +305,11 @@ window.addEventListener("load", () => {
     const observador = new IntersectionObserver((entradas) => {
       if (!entradas.some((e) => e.isIntersecting)) return;
       observador.disconnect();
-      videoDeFundo(fundoRodape, "./assets/img/video-footer.mp4");
+      videoDeFundo(fundoRodape, "/assets/img/video-footer.mp4");
     }, { rootMargin: "0px 0px 100% 0px" });
     observador.observe(fundoRodape);
   } else {
-    videoDeFundo(fundoRodape, "./assets/img/video-footer.mp4");
+    videoDeFundo(fundoRodape, "/assets/img/video-footer.mp4");
   }
 
   if (animar) ScrollTrigger.refresh();
@@ -330,11 +335,14 @@ function iniciarAnimacoes() {
   const DESKTOP = "(min-width: 769px)";
   const CELULAR = "(max-width: 768px)";
 
+  // As animações 1a a 5 só existem na página inicial; nas outras páginas não há esses blocos
+  const naHome = !!document.querySelector("#home");
+
   // ---------- 1a. Computador: hero fixado + 11 colunas + texto letra a letra ----------
-  mm.add(DESKTOP, () => {
+  if (naHome) mm.add(DESKTOP, () => {
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: "main",
+        trigger: "#home",
         start: "100% 100%",
         end: "+=2000",
         scrub: 1,
@@ -351,7 +359,7 @@ function iniciarAnimacoes() {
   });
 
   // ---------- 1b. Celular: frase em bloco próprio, palavras acendendo ao rolar ----------
-  mm.add(CELULAR, () => {
+  if (naHome) mm.add(CELULAR, () => {
     const split = new SplitText(".textoAnimado2", { type: "words" });
     gsap.set(".textoAnimado2", { opacity: 1 });
     gsap.fromTo(split.words, { opacity: 0.15 }, {
@@ -387,7 +395,7 @@ function iniciarAnimacoes() {
   });
 
   // ---------- 3. Como funciona: cards empilhados (no celular vira carrossel, sem GSAP) ----------
-  mm.add(DESKTOP, () => {
+  if (document.querySelector(".processo")) mm.add(DESKTOP, () => {
     const cardsProcesso = gsap.utils.toArray(".passo-card");
     gsap.set(cardsProcesso, {
       y: (i) => i * 20,
@@ -447,7 +455,7 @@ function iniciarAnimacoes() {
   });
 
   // ---------- 5. Seta girando nos cards de suporte ----------
-  gsap.to(".card3 .seta", {
+  if (document.querySelector(".card3 .seta")) gsap.to(".card3 .seta", {
     rotation: 180,
     ease: "none",
     scrollTrigger: { trigger: ".sec3", start: "top 80%", end: "bottom 20%", scrub: 1 },
@@ -520,6 +528,19 @@ function iniciarAnimacoes() {
   document.querySelectorAll("img").forEach((img) => {
     if (!img.complete) img.addEventListener("load", recalcular, { once: true });
   });
+
+  irParaSecaoDoEndereco();
+}
+
+// Quem chega de outra página por um link como "/#faq" vai direto para a seção
+function irParaSecaoDoEndereco() {
+  const id = window.location.hash;
+  if (id.length < 2) return;
+  let alvo = null;
+  try { alvo = document.querySelector(id); } catch (e) { return; }
+  if (!alvo) return;
+  if (smoother) setTimeout(() => smoother.scrollTo(alvo, false, "top top"), 50);
+  else alvo.scrollIntoView();
 }
 
 // ==========================================
@@ -532,7 +553,7 @@ function liberarPagina() {
   document.documentElement.classList.remove("carregando");
 }
 
-if (animar) {
+if (animar && preloader) {
   const tracos = document.querySelectorAll(".loader-traco");
   tracos.forEach((traco) => {
     const tamanho = traco.getTotalLength();
@@ -571,9 +592,14 @@ if (animar) {
       iniciarUmaVez();
     }
   }, 6000);
+} else if (animar) {
+  // Páginas sem pre loader (planos, formulário): mostra e anima assim que as fontes carregarem
+  liberarPagina();
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(iniciarAnimacoes);
 } else {
   if (preloader) preloader.remove();
   liberarPagina();
+  irParaSecaoDoEndereco();
 }
 
 // ==========================================
