@@ -32,6 +32,47 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- Ficha da empresa para o Google (não aparece no site) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://stutz-web.vercel.app/#empresa",
+        "name": "Stutz Web",
+        "alternateName": "STUTZ",
+        "description": "Criação de sites e landing pages programados do zero, rápidos e feitos para trazer cliente pelo WhatsApp.",
+        "url": "https://stutz-web.vercel.app/",
+        "logo": "https://stutz-web.vercel.app/apple-touch-icon.png",
+        "image": "https://stutz-web.vercel.app/assets/img/og-stutz.jpg",
+        "telephone": "+55 11 92748-5272",
+        "areaServed": { "@type": "Country", "name": "Brasil" },
+        "knowsLanguage": "pt-BR",
+        "sameAs": [
+          "https://www.instagram.com/stutz_web/",
+          "https://www.facebook.com/profile.php?id=61596590780514"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "telephone": "+55 11 92748-5272",
+          "url": "https://wa.me/5511927485272",
+          "availableLanguage": "Portuguese"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://stutz-web.vercel.app/#site",
+        "name": "Stutz Web",
+        "url": "https://stutz-web.vercel.app/",
+        "inLanguage": "pt-BR",
+        "publisher": { "@id": "https://stutz-web.vercel.app/#empresa" }
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -564,13 +605,13 @@
         </div>
 
         <div class="footer-bottom-section">
-          <div class="fb-logo"><img src="assets/img/logo-stutz.png" alt="STUTZ"></div>
+          <div class="fb-logo"><img src="assets/img/logo-stutz.png" alt="Stutz Web"></div>
           <div class="fb-socials">
             <a href="https://www.instagram.com/stutz_web/" target="_blank" rel="noopener">Instagram</a>
             <a href="https://www.facebook.com/profile.php?id=61596590780514" target="_blank" rel="noopener">Facebook</a>
             <a href="#contato" data-whats data-local="rodape-redes">WhatsApp</a>
           </div>
-          <div class="fb-credits"><p>© <span id="ano">2026</span> <strong>STUTZ</strong>. Todos os direitos reservados. <a href="#" class="link-cookies" data-cookies-abrir>Cookies</a></p></div>
+          <div class="fb-credits"><p>© <span id="ano">2026</span> <strong>Stutz Web</strong>. Todos os direitos reservados. <a href="#" class="link-cookies" data-cookies-abrir>Cookies</a></p></div>
         </div>
       </footer>
 
