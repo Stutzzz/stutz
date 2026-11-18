@@ -478,6 +478,84 @@ function iniciarAnimacoes() {
     });
   });
 
+  // ---------- 6b. O que está em jogo: pilha de folhas ao rolar ----------
+  // Cada folha gruda logo abaixo do menu, deslocada pela soma das faixas de título acima dela,
+  // e a próxima sobe por cima. Quando a última é coberta pelo fundo final (.jogo-sobra),
+  // a pilha sobe inteira. Com o ScrollSmoother o position: sticky não funciona, então a
+  // conta é feita aqui e aplicada com transform. Em telas baixas a lista fica parada.
+  const pilha = document.querySelector(".jogo-pilha");
+  if (pilha) mm.add("(min-height: 560px)", () => {
+    const folhas = gsap.utils.toArray(".jogo-folha", pilha);
+    const sobra = pilha.parentElement.querySelector(".jogo-sobra");
+    const menu = document.querySelector(".nav-wrap");
+    const FOLGA = 14; // respiro entre o fim do título e o fio da folha de cima
+    let m = null;
+
+    // Medidas de layout (offsetTop/offsetHeight não mudam com o transform das folhas)
+    const medir = () => {
+      const topo = Math.round((menu ? menu.getBoundingClientRect().bottom : 80) + 14);
+      const T = [], H = [], D = [], S = [];
+      let acumulado = topo;
+      folhas.forEach((folha, i) => {
+        const titulo = folha.querySelector(".jogo-nome");
+        const adesivo = folha.querySelector(".jogo-adesivo");
+        T[i] = folha.offsetTop;
+        H[i] = folha.offsetHeight;
+        D[i] = Math.round(titulo.offsetTop + titulo.offsetHeight + FOLGA);
+        S[i] = acumulado;
+        acumulado += D[i];
+        // O adesivo encolhe até caber na faixa do título
+        if (adesivo && adesivo.offsetHeight) {
+          const escala = (D[i] - adesivo.offsetTop - 8) / adesivo.offsetHeight;
+          folha.style.setProperty("--escala-min", gsap.utils.clamp(0.15, 1, escala).toFixed(3));
+        }
+      });
+      const fim = pilha.offsetHeight;
+      // O fundo final precisa ser alto o bastante para cobrir o que sobra de cada folha
+      const cobrir = Math.max(0, ...folhas.map((_, i) => S[i] - acumulado + H[i]));
+      if (sobra) sobra.style.setProperty("--sobra", Math.ceil(cobrir + 2) + "px");
+      m = { T, H, D, S, fim, fechada: acumulado - fim };
+    };
+
+    const referencia = ScrollTrigger.create({ trigger: pilha, start: "top top" });
+
+    const aplicar = (rolagem) => {
+      if (!m) return;
+      // Topo da lista na tela; depois que a pilha fecha, as folhas sobem juntas
+      const L = Math.max(referencia.start - rolagem, m.fechada);
+      const n = folhas.length;
+      const desloca = folhas.map((_, i) => Math.max(0, m.S[i] - L - m.T[i]));
+      folhas.forEach((folha, i) => {
+        const topo = L + m.T[i] + desloca[i];
+        const proxima = i < n - 1 ? L + m.T[i + 1] + desloca[i + 1] : L + m.fim;
+        const visivel = gsap.utils.clamp(0, 1, (proxima - topo - m.D[i]) / Math.max(1, m.H[i] - m.D[i]));
+        folha.style.transform = desloca[i] ? `translate3d(0, ${desloca[i]}px, 0)` : "";
+        folha.style.setProperty("--visivel", visivel.toFixed(3));
+      });
+    };
+
+    medir();
+    ScrollTrigger.addEventListener("refreshInit", medir);
+    ScrollTrigger.create({
+      trigger: pilha,
+      start: "top bottom",
+      endTrigger: sobra || pilha,
+      end: "bottom top",
+      onUpdate: (self) => aplicar(self.scroll()),
+      onRefresh: (self) => aplicar(self.scroll()),
+    });
+
+    return () => {
+      ScrollTrigger.removeEventListener("refreshInit", medir);
+      folhas.forEach((folha) => {
+        folha.style.transform = "";
+        folha.style.removeProperty("--visivel");
+        folha.style.removeProperty("--escala-min");
+      });
+      if (sobra) sobra.style.removeProperty("--sobra");
+    };
+  });
+
   // ---------- 7. Letras rolando no menu e na nav ----------
   // O "Fale conosco" do rodapé usa o mesmo efeito: o texto rola quando o mouse passa no botão
   document.querySelectorAll(".menu-nav a:not(.menu-cta), .nav-links a, .footer-contact-btn .fc-texto").forEach((link) => {

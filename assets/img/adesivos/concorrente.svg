@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240"><defs><filter id="adesivo" x="-15%" y="-15%" width="130%" height="135%" color-interpolation-filters="sRGB"><feMorphology in="SourceAlpha" operator="dilate" radius="6" result="d"/><feGaussianBlur in="d" stdDeviation="2.5" result="b"/><feComponentTransfer in="b" result="borda0"><feFuncA type="linear" slope="8" intercept="-3"/></feComponentTransfer><feFlood flood-color="#ffffff"/><feComposite in2="borda0" operator="in" result="borda"/><feDropShadow in="borda" dx="0" dy="5" stdDeviation="5" flood-color="#02050b" flood-opacity=".28" result="sombra"/><feMerge><feMergeNode in="sombra"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<g filter="url(#adesivo)" stroke="#0b1220" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="rotate(-9 70 112)">
+    <rect x="16" y="58" width="112" height="100" rx="6" fill="#dfe4ea" stroke-width="4"/>
+    <path d="M16 76 H128" stroke-width="4"/>
+    <rect x="20" y="62" width="104" height="12" fill="#b9c2ce" stroke-width="0"/>
+    <rect x="26" y="86" width="56" height="8" fill="#9aa4b2" stroke-width="0"/>
+    <rect x="26" y="100" width="40" height="34" fill="#c9d0d9" stroke="#8d97a6" stroke-width="2.5" stroke-dasharray="4 4"/>
+    <path d="M38 110 l16 14 M54 110 l-16 14" stroke="#8d97a6" stroke-width="3"/>
+    <rect x="74" y="102" width="44" height="4" fill="#9aa4b2" stroke-width="0"/>
+    <rect x="74" y="112" width="38" height="4" fill="#9aa4b2" stroke-width="0"/>
+    <rect x="74" y="122" width="42" height="4" fill="#9aa4b2" stroke-width="0"/>
+    <rect x="26" y="142" width="30" height="8" fill="#9aa4b2" stroke-width="0"/>
+  </g>
+  <g transform="rotate(5 160 134)">
+    <rect x="96" y="70" width="130" height="118" rx="13" fill="#f2f5f9" stroke-width="4.5"/>
+    <path d="M96 92 H226" stroke-width="4"/>
+    <circle cx="110" cy="81" r="4" fill="#ff6b5e" stroke-width="0"/>
+    <circle cx="122" cy="81" r="4" fill="#ffcf4c" stroke-width="0"/>
+    <circle cx="134" cy="81" r="4" fill="#5ecb7a" stroke-width="0"/>
+    <rect x="106" y="100" width="110" height="50" rx="8" fill="#0a74e6" stroke-width="0"/>
+    <rect x="114" y="110" width="60" height="7" rx="3.5" fill="#ffffff" stroke-width="0"/>
+    <rect x="114" y="122" width="44" height="5" rx="2.5" fill="#cddff7" stroke-width="0"/>
+    <rect x="114" y="133" width="32" height="10" rx="5" fill="#4d9bff" stroke="#ffffff" stroke-width="2"/>
+    <circle cx="196" cy="125" r="14" fill="#4d9bff" stroke-width="0"/>
+    <rect x="106" y="158" width="32" height="20" rx="5" fill="#cddff7" stroke-width="0"/>
+    <rect x="145" y="158" width="32" height="20" rx="5" fill="#cddff7" stroke-width="0"/>
+    <rect x="184" y="158" width="32" height="20" rx="5" fill="#cddff7" stroke-width="0"/>
+  </g>
+  <circle cx="206" cy="66" r="21" fill="#0a74e6" stroke-width="4.5"/>
+  <path d="M196 66 l7 7 13 -14" fill="none" stroke="#ffffff" stroke-width="5.5"/>
+  <circle cx="98" cy="52" r="17" fill="#ffcf4c" stroke-width="4"/>
+  <text x="98" y="58" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="16" fill="#0b1220" stroke="none">VS</text>
+</g>
+</svg>

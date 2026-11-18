@@ -256,46 +256,54 @@
       </section>
 
       <!-- ================= O QUE ESTÁ EM JOGO ================= -->
+      <!-- Pilha: cada item gruda abaixo do menu e o próximo sobe por cima, deixando só o título à mostra (script.js, bloco 7) -->
       <section class="jogo" aria-label="O que está em jogo">
-        <div class="container jogo-grid">
-          <div class="jogo-esquerda">
+        <div class="container">
+          <div class="jogo-topo">
             <p class="eyebrow">O que está em jogo</p>
             <h2 class="textoAnimado">Seu cliente te pesquisa antes de fechar. E decide pelo <span class="destaque">site que encontra</span>.</h2>
             <p class="lead">Um site fraco faz você perder cliente sem nem ficar sabendo. Um site bem feito trabalha por você todo dia.</p>
           </div>
 
-          <ol class="jogo-lista">
-            <li>
-              <span class="jogo-ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
-              <div>
-                <h3>Ele confere o seu site antes de chamar</h3>
-                <p>Ele ouve o seu nome, procura no Google e abre o seu site. Se não encontra nada que convença, a conversa nem começa.</p>
+          <ol class="jogo-pilha">
+            <li class="jogo-folha" style="--i: 0">
+              <span class="jogo-n" aria-hidden="true">01</span>
+              <div class="jogo-corpo">
+                <h3 class="jogo-nome">Ele confere o seu site antes de chamar</h3>
+                <p class="jogo-desc">Ele ouve o seu nome, procura no Google e abre o seu site. Se não encontra nada que convença, a conversa nem começa.</p>
               </div>
+              <img class="jogo-adesivo" src="assets/img/adesivos/pesquisa.svg" width="240" height="240" alt="" loading="lazy" decoding="async">
             </li>
-            <li>
-              <span class="jogo-ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M8 21H3v-5M21 3l-7 7M3 21l7-7"/></svg></span>
-              <div>
-                <h3>Ele te compara com o concorrente</h3>
-                <p>Os dois aparecem. Um tem um site moderno que passa seriedade, o outro um site de 2015. Ele escolhe quem parece mais estabelecido.</p>
+            <li class="jogo-folha" style="--i: 1">
+              <span class="jogo-n" aria-hidden="true">02</span>
+              <div class="jogo-corpo">
+                <h3 class="jogo-nome">Ele te compara com o concorrente</h3>
+                <p class="jogo-desc">Os dois aparecem. Um tem um site moderno que passa seriedade, o outro um site de 2015. Ele escolhe quem parece mais estabelecido.</p>
               </div>
+              <img class="jogo-adesivo" src="assets/img/adesivos/concorrente.svg" width="240" height="240" alt="" loading="lazy" decoding="async">
             </li>
-            <li>
-              <span class="jogo-ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
-              <div>
-                <h3>Anúncio sem página certa vira desperdício</h3>
-                <p>Mandar o clique para um site genérico faz a pessoa se perder. Uma landing page focada leva direto para o contato.</p>
+            <li class="jogo-folha" style="--i: 2">
+              <span class="jogo-n" aria-hidden="true">03</span>
+              <div class="jogo-corpo">
+                <h3 class="jogo-nome">Anúncio sem página certa vira desperdício</h3>
+                <p class="jogo-desc">Mandar o clique para um site genérico faz a pessoa se perder. Uma landing page focada leva direto para o contato.</p>
               </div>
+              <img class="jogo-adesivo" src="assets/img/adesivos/anuncio.svg" width="240" height="240" alt="" loading="lazy" decoding="async">
             </li>
-            <li>
-              <span class="jogo-ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-              <div>
-                <h3>Site lento espanta no celular</h3>
-                <p>A pessoa abre, demora para carregar, fica torto na tela, e ela fecha antes de ler a primeira linha.</p>
+            <li class="jogo-folha" style="--i: 3">
+              <span class="jogo-n" aria-hidden="true">04</span>
+              <div class="jogo-corpo">
+                <h3 class="jogo-nome">Site lento espanta no celular</h3>
+                <p class="jogo-desc">A pessoa abre, demora para carregar, fica torto na tela, e ela fecha antes de ler a primeira linha.</p>
               </div>
+              <img class="jogo-adesivo" src="assets/img/adesivos/lento.svg" width="240" height="240" alt="" loading="lazy" decoding="async">
             </li>
           </ol>
+
+          <div class="jogo-sobra">
+            <p class="jogo-fecho">Um site bem feito vira esse jogo a seu favor, todo dia.</p>
+          </div>
         </div>
-        <p class="container jogo-fecho">Um site bem feito vira esse jogo a seu favor, todo dia.</p>
       </section>
 
       <!-- ================= SERVIÇOS ================= -->

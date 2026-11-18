@@ -716,57 +716,95 @@ html.trocando-tema *::after {
 
 /* ==========================================================
    O QUE ESTÁ EM JOGO
+   Pilha ao rolar: cada folha gruda abaixo do menu e a próxima sobe por cima,
+   deixando só a faixa do título. O script.js (bloco 7) mede e move as folhas;
+   sem ele, a lista fica parada e tudo continua legível.
 ========================================================== */
 .jogo { padding: var(--section) 0; background: var(--bg-2); }
 
-.jogo-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: start;
-}
+.jogo-topo { max-width: 880px; margin-bottom: 72px; }
+.jogo-topo .lead { max-width: 620px; }
 
-.jogo-lista { display: grid; gap: 36px; }
+.jogo-pilha { position: relative; list-style: none; }
 
-.jogo-lista li {
+.jogo-folha {
   position: relative;
-  display: flex;
-  gap: 20px;
-}
-
-.jogo-lista li:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  left: 21px;
-  top: 52px;
-  bottom: -28px;
-  width: 1.5px;
-  background: var(--line);
-}
-
-.jogo-ico {
-  flex-shrink: 0;
+  z-index: calc(var(--i) + 1);
   display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--paper);
-  border: 1.5px solid var(--edge);
-  box-shadow: 3px 3px 0 0 var(--hard);
-  color: var(--accent);
+  grid-template-columns: 44px minmax(0, 1fr) clamp(150px, 16vw, 210px);
+  gap: clamp(16px, 3vw, 40px);
+  align-items: start;
+  padding: 30px 0 44px;
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
 }
 
-.jogo-lista h3 { font-size: 20px; margin-top: 8px; }
-.jogo-lista p { margin-top: 8px; color: var(--muted); }
+.jogo-folha:first-child { border-top-color: transparent; }
+
+.jogo-n {
+  padding-top: 9px;
+  font-family: var(--display);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.jogo-nome { font-size: clamp(1.35rem, 2.3vw, 2rem); line-height: 1.15; letter-spacing: -0.01em; }
+
+.jogo-desc {
+  max-width: 58ch;
+  margin-top: 16px;
+  font-size: clamp(16px, 1.2vw, 18px);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* Adesivo: encolhe para o canto da faixa do título quando a próxima folha cobre (--visivel vai de 1 a 0) */
+.jogo-adesivo {
+  justify-self: end;
+  width: 100%;
+  height: auto;
+  transform-origin: right top;
+  transform: scale(calc(var(--escala-min, 0.3) + (1 - var(--escala-min, 0.3)) * var(--visivel, 1)));
+  opacity: calc(0.35 + 0.65 * var(--visivel, 1));
+  rotate: 0deg;
+  transition: rotate 0.5s var(--ease);
+}
+
+.jogo-folha:hover .jogo-adesivo { rotate: -5deg; }
+
+/* Fundo que sobe por último e cobre a quarta folha; a altura mínima vem do script */
+.jogo-sobra {
+  position: relative;
+  z-index: 20;
+  min-height: var(--sobra, 0px);
+  padding-top: 64px;
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+}
 
 .jogo-fecho {
-  margin-top: 80px;
   text-align: center;
   font-family: var(--display);
   font-weight: 500;
   font-size: clamp(1.25rem, 2vw, 1.75rem);
   color: var(--ink);
+}
+
+@media (max-width: 768px) {
+  .jogo-topo { margin-bottom: 48px; }
+  .jogo-folha { grid-template-columns: 26px minmax(0, 1fr); gap: 4px 12px; padding: 22px 0 28px; }
+  .jogo-n { padding-top: 5px; font-size: 12px; }
+  .jogo-nome { font-size: 1.3rem; }
+  .jogo-desc { margin-top: 10px; font-size: 16px; }
+  /* No celular o adesivo fica embaixo do texto e some coberto pela próxima folha, sem encolher */
+  .jogo-adesivo { grid-column: 2; justify-self: start; width: 132px; margin-top: 14px; transform: none; opacity: 1; }
+  .jogo-sobra { padding-top: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jogo-adesivo { transform: none; opacity: 1; transition: none; }
 }
 
 /* ==========================================================
@@ -1525,7 +1563,7 @@ html.trocando-tema *::after {
 @media (max-width: 1100px) {
   .nav-links { gap: 22px; }
   .servicos-grid { grid-template-columns: repeat(2, 1fr); }
-  .jogo-grid, .funil-grid { grid-template-columns: 1fr; gap: 56px; }
+  .funil-grid { grid-template-columns: 1fr; gap: 56px; }
 
   .sec3 { flex-direction: column; align-items: stretch; }
   .sec3 .esquerda, .sec3 .direita { width: 100%; }
